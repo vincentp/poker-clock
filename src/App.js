@@ -25,11 +25,11 @@ class App extends Component {
         <header className="App-header">
           <span>Poker Clock</span>
         </header>
-        <div className="clock">
+        <div className="circled-counter">
           {this.state.counter.hoursLabel}:{this.state.counter.minutesLabel}:
           {this.state.counter.secondsLabel}
         </div>
-        <button onClick={this.state.counter.toggle}>
+        <button onClick={this.state.counter.toggle} className="btn btn-light counter-toggle">
           {(this.state.counter.status === "STARTED" ? "STOP" : "START")}
         </button>
       </div>
