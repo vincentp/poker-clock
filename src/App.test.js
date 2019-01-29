@@ -9,13 +9,13 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-it('should have a button to start the counter', () => {
+it('should have a button to start the clock', () => {
   const wrapper = mount(<App />);
-  expect(wrapper.find('button.counter-toggle').text()).toEqual("START");
+  expect(wrapper.find('button.clock-toggle').text()).toEqual("START");
 });
 
-it('should have a button to pause the counter once started', () => {
+it('should have a button to pause the clock once started', () => {
   const wrapper = mount(<App />);
-  wrapper.find('button.counter-toggle').simulate('click');
-  expect(wrapper.find('button.counter-toggle').text()).toEqual("PAUSE");
+  wrapper.find('button.clock-toggle').simulate('click');
+  expect(wrapper.find('button.clock-toggle').text()).toEqual("PAUSE");
 });

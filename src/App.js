@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Counter } from "./services/counter";
+import { Clock } from "./services/clock";
 
 class App extends Component {
-  counter: null;
+  clock: null;
 
   constructor(props) {
     super(props);
 
-    this.counter = new Counter();
-    this.counter.onEvent = this.onCounterEvent;
+    this.clock = new Clock();
+    this.clock.onEvent = this.onClockEvent;
 
-    this.state = { counter: this.counter };
+    this.state = { clock: this.clock };
   }
 
-  onCounterEvent = e => {
-    console.log("e", e);
-    this.setState(Object.assign({}, this.state, { counter: this.counter }));
+  onClockEvent = e => {
+    this.setState(Object.assign({}, this.state, { clock: this.clock }));
   };
 
   render() {
@@ -25,12 +24,12 @@ class App extends Component {
         <header className="App-header">
           <span>Poker Clock</span>
         </header>
-        <div className="circled-counter">
-          {this.state.counter.hoursLabel}:{this.state.counter.minutesLabel}:
-          {this.state.counter.secondsLabel}
+        <div className="circled-clock">
+          {this.state.clock.hoursLabel}:{this.state.clock.minutesLabel}:
+          {this.state.clock.secondsLabel}
         </div>
-        <button onClick={this.state.counter.toggle} className="btn btn-light counter-toggle">
-          {(this.state.counter.status === "STARTED" ? "PAUSE" : "START")}
+        <button onClick={this.state.clock.toggle} className="btn btn-light clock-toggle">
+          {(this.state.clock.status === "STARTED" ? "PAUSE" : "START")}
         </button>
       </div>
     );

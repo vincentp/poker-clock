@@ -1,4 +1,4 @@
-export class Counter {
+export class Clock {
 
   totalSeconds = 0;
   hoursLabel = "00";
@@ -51,6 +51,13 @@ export class Counter {
 
   toggle = () => {
     this.status === "STARTED" ? this.stop() : this.start();
+  }
+
+  reset() {
+    this.totalSeconds = 0;
+    this.hoursLabel = "00";
+    this.minutesLabel = "00";
+    this.secondsLabel = "00";    
   }
 
 }

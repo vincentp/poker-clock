@@ -12,7 +12,7 @@ html, body, #root {
   color: white;
 }
 
-.circled-counter {
+.circled-clock {
   position: relative;
   top: 50%;
   margin: -110px auto 0 auto;
@@ -26,7 +26,7 @@ html, body, #root {
   line-height: 180px
 }
 
-.counter-toggle {
+.clock-toggle {
   position: absolute;
   bottom: 0;
   left: 50%;
