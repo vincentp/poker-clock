@@ -2,7 +2,11 @@
 
 ## Lib Used
 
+Bootstrap for React:
 https://reactstrap.github.io/
+
+Tests:
+https://facebook.github.io/create-react-app/docs/running-tests
 
 ## Ideas
 

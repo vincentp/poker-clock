@@ -30,7 +30,7 @@ class App extends Component {
           {this.state.counter.secondsLabel}
         </div>
         <button onClick={this.state.counter.toggle} className="btn btn-light counter-toggle">
-          {(this.state.counter.status === "STARTED" ? "STOP" : "START")}
+          {(this.state.counter.status === "STARTED" ? "PAUSE" : "START")}
         </button>
       </div>
     );
