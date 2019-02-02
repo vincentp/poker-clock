@@ -1,0 +1,41 @@
+html, body, #root
+  height: 100%
+
+.app
+  background-color: #1c222e
+  height: 100%
+
+  .app-header
+    font-size: calc(10px + 2vmin)
+    color: white
+
+.circled-clock
+  position: relative
+  top: 50%
+  margin: -110px auto 0 auto
+  border: 10px solid white    
+  height: 200px
+  border-radius: 50%
+  width: 200px
+  text-align: center
+  color: white
+
+  .labels
+    position: relative
+    top: 50%
+    margin-top: -25px
+    .stopwatch-label
+      display: block
+      width: 100%
+      font-size: calc(24px + 2vmin)
+
+    .clock-label
+      display: block
+      width: 100%
+      font-size: calc(13px + 2vmin)
+
+.clock-toggle
+  position: absolute
+  bottom: 0
+  left: 50%
+  transform: translate(-50%, -50%)

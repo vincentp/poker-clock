@@ -9,6 +9,8 @@ export class Clock {
 
   interval = null;
 
+  mode = "stopwatch"; // stopwatch
+
   onEvent = function() {}
 
   constructor() {
@@ -24,13 +26,29 @@ export class Clock {
   }
 
   updateTime = () => {
-    this.totalSeconds++;
+    if (this.mode === "timer")
+      this.totalSeconds--;
+    else if (this.mode === "stopwatch")
+      this.totalSeconds++;
 
     this.secondsLabel = this.formatValue(this.totalSeconds % 60);
     this.minutesLabel = this.formatValue(parseInt(this.totalSeconds / 60));
     this.hoursLabel   = this.formatValue(parseInt(this.totalSeconds / 3600));
 
-    this.onEvent('TICK');
+    if (this.hasEnded()) {
+      this.clearInterval();
+      this.status = "ENDED";
+      this.onEvent('END');
+    } else {
+      this.onEvent('TICK');
+    }
+  }
+
+  hasEnded() {
+    if (this.mode === "timer")
+      return this.totalSeconds === 0;
+    else 
+      return false;
   }
 
   startInterval() {
@@ -38,13 +56,19 @@ export class Clock {
   }
 
   start() {
-    this.onEvent('STARTED');
-    this.startInterval();
-    this.status = "STARTED";
+    if (!this.hasEnded()) {
+      this.onEvent('STARTED');
+      this.startInterval();
+      this.status = "STARTED";
+    }
+  }
+
+  clearInterval() {
+    if (this.interval) clearInterval(this.interval);
   }
 
   stop() {
-    if (this.interval) clearInterval(this.interval);
+    this.clearInterval();
     this.status = "PAUSED";
     this.onEvent('PAUSED');
   }
