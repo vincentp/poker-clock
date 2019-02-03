@@ -1,39 +1,39 @@
 import React, { Component } from "react";
 import "./App.sass";
 import { Clock } from "./services/clock";
+import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "./actions/actionTypes";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return { clock: state.clock };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    startClock: () => dispatch({ type: START_CLOCK }),
+    pauseClock: () => dispatch({ type: PAUSE_CLOCK }),
+    resetClock: () => dispatch({ type: RESET_CLOCK }),
+    tickClock: ()  => dispatch({ type: TICK_CLOCK }),
+  }
+};
 
 class App extends Component {
-  clock: null;
-  stopwatch: null;
 
   constructor(props) {
     super(props);
-
-    this.clock = new Clock();
-    this.clock.onEvent = this.onStopwatchEvent;
-
-    this.stopwatch = new Clock();
-    this.stopwatch.totalSeconds = 10;
-    this.stopwatch.mode = "timer";
-    this.stopwatch.onEvent = this.onClockEvent;
-
-    this.state = { 
-      clock: this.clock,
-      stopwatch: this.stopwatch
-    };
+    setInterval(this.tick, 1000);
   }
 
-  onStopwatchEvent = e => {
-    this.setState(Object.assign({}, this.state, { stopwatch: this.stopwatch }));
-  };
-
-  onClockEvent = e => {
-    this.setState(Object.assign({}, this.state, { clock: this.clock }));
-  };
+  tick = () => {
+    if (this.props.clock.status === "STARTED")
+      this.props.tickClock();
+  }
 
   toggleClock = e => {
-    this.clock.toggle();
-    this.stopwatch.toggle();
+    if (this.props.clock.status === "STARTED")
+      this.props.pauseClock();
+    else if (this.props.clock.status === "PAUSED")
+      this.props.startClock();
   };
 
   render() {
@@ -44,20 +44,20 @@ class App extends Component {
         </header>
         <div className="circled-clock">
           <div className="labels">
-            <span className="stopwatch-label">
-              {this.state.stopwatch.hoursLabel}:{this.state.stopwatch.minutesLabel}:{this.state.stopwatch.secondsLabel}
+            <span className="timer-label">
+              {Clock.formatTotalSeconds(this.props.clock.timer.totalSeconds)}
             </span>
             <span className="clock-label">
-              {this.state.clock.hoursLabel}:{this.state.clock.minutesLabel}:{this.state.clock.secondsLabel}
+              {Clock.formatTotalSeconds(this.props.clock.totalSeconds)}
             </span>
           </div>
         </div>
         <button onClick={this.toggleClock} className="btn btn-light clock-toggle">
-          {(this.state.clock.status === "STARTED" ? "PAUSE" : "START")}
+          { this.props.clock.status === "STARTED" ? "PAUSE" : "START" }
         </button>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

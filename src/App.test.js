@@ -1,21 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { mount } from './enzyme'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { mount } from "./enzyme";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
+import { START_CLOCK } from "./actions/actionTypes";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+describe("App Component", () => {
+  const initialState = { clock: { status: 'PAUSED', timer: {} } };
+  const mockStore = configureStore();
+  let store, wrapper;
 
-it('should have a button to start the clock', () => {
-  const wrapper = mount(<App />);
-  expect(wrapper.find('button.clock-toggle').text()).toEqual("START");
-});
+  beforeEach(() => {
+    store = mockStore(initialState);
+    wrapper = mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  });
 
-it('should have a button to pause the clock once started', () => {
-  const wrapper = mount(<App />);
-  wrapper.find('button.clock-toggle').simulate('click');
-  expect(wrapper.find('button.clock-toggle').text()).toEqual("PAUSE");
+  it("should have a button to start the clock", () => {
+    expect(wrapper.find("button.clock-toggle").text()).toEqual("START");
+  });
+
+  it("should send an action to the store on start", () => {
+    wrapper.find("button.clock-toggle").simulate("click");
+    expect(store.getActions()).toEqual([{ type: START_CLOCK }]);    
+  });
 });
