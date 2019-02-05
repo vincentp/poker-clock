@@ -1,7 +1,7 @@
 import initialState from "./initialState";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "../actions/actionTypes";
 
-export default function clock(state = initialState.clock, action) {
+export default function clock(state = initialState.clock, action: any) {
 
   let newState;
   

@@ -4,11 +4,23 @@ import { Clock } from "./services/clock";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "./actions/actionTypes";
 import { connect } from "react-redux";
 
-const mapStateToProps = state => {
+interface ComponentProps {
+  startClock: () => void;
+  pauseClock: () => void;
+  resetClock: () => void;
+  tickClock: ()  => void;
+  clock: any;
+}
+
+interface ComponentState {  
+  clock: any;
+}
+
+const mapStateToProps = (state: ComponentState) => {
   return { clock: state.clock };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     startClock: () => dispatch({ type: START_CLOCK }),
     pauseClock: () => dispatch({ type: PAUSE_CLOCK }),
@@ -17,9 +29,9 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-class App extends Component {
+class App extends Component <ComponentProps, ComponentState> {
 
-  constructor(props) {
+  constructor(props: ComponentProps) {
     super(props);
     setInterval(this.tick, 1000);
   }
@@ -29,7 +41,7 @@ class App extends Component {
       this.props.tickClock();
   }
 
-  toggleClock = e => {
+  toggleClock = (e: React.MouseEvent<HTMLElement>) => {
     if (this.props.clock.status === "STARTED")
       this.props.pauseClock();
     else if (this.props.clock.status === "PAUSED")

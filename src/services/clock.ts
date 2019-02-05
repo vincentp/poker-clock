@@ -1,14 +1,14 @@
 export class Clock {
 
-  static formatTotalSeconds(totalSeconds) {
+  static formatTotalSeconds(totalSeconds: number) {
     let secondsLabel = this.formatValue(totalSeconds % 60);
-    let minutesLabel = this.formatValue(parseInt(totalSeconds / 60));
-    let hoursLabel   = this.formatValue(parseInt(totalSeconds / 3600));
+    let minutesLabel = this.formatValue(Math.floor(totalSeconds / 60));
+    let hoursLabel   = this.formatValue(Math.floor(totalSeconds / 3600));
 
     return hoursLabel + ":" + minutesLabel + ":" + secondsLabel;
   }
 
-  static formatValue(val) {
+  static formatValue(val: number) {
     let str = val + "";
     if (str.length < 2) {
       return "0" + str;
