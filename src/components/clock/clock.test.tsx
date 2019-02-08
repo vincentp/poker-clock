@@ -10,7 +10,7 @@ import { START_CLOCK } from "../../actions/actionTypes";
 import { JssProvider } from 'react-jss'
 
 describe("App Component", () => {
-  const initialState = { clock: { totalSeconds: 0, timer: { totalSeconds: 70 } } };
+  const initialState = { clock: { status: 'PAUSED', totalSeconds: 0, timer: { totalSeconds: 70 } } };
   const mockStore = configureStore();
   let store: any;
   let wrapper: any;
@@ -24,6 +24,15 @@ describe("App Component", () => {
         </JssProvider>
       </Provider>
     );
+  });
+
+  it("should have a button to start the clock", () => {
+    expect(wrapper.find('button.toggle').text()).toEqual("START");
+  });
+
+  it("should send an action to the store on start", () => {
+    wrapper.find("button.toggle").simulate("click");
+    expect(store.getActions()).toEqual([{ type: START_CLOCK }]);    
   });
 
   it("should have a default clock at 00:00:00", () => {

@@ -1,30 +1,30 @@
 export default {
 
-  wrapper: {
+  circle: {
     position: 'relative',
-    top: '50%',
-    margin: '-110px auto 0 auto',
-    border: '10px solid white',
-    height: 200,
+    top: '0.05%',
+    margin: '0 auto',
+    border: '1px solid white',
     borderRadius: '50%',
-    width: 200,
     textAlign: 'center',
     color: 'white'
   },
-  labels: {
+  content: {
     position: 'relative',
     top: '50%',
-    marginTop: -25
+    marginTop: 'calc(-80px + 2vmin)'
   },
   timer: {
     display: 'block',
     width: '100%',
-    fontSize: 'calc(24px + 2vmin)'
+    fontSize: 'calc(80px + 2vmin)'
   },
   clock: {
     display: 'block',
     width: '100%',
-    fontSize: 'calc(13px + 2vmin)'
+    fontSize: 'calc(20px + 2vmin)'
+  },
+  toggle: {
   }
 
 };
