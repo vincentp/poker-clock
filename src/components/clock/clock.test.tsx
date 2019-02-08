@@ -6,6 +6,9 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { START_CLOCK } from "../../actions/actionTypes";
 
+// @ts-ignore
+import { JssProvider } from 'react-jss'
+
 describe("App Component", () => {
   const initialState = { clock: { totalSeconds: 0, timer: { totalSeconds: 70 } } };
   const mockStore = configureStore();
@@ -16,7 +19,9 @@ describe("App Component", () => {
     store = mockStore(initialState);
     wrapper = mount(
       <Provider store={store}>
-        <Clock />
+        <JssProvider generateClassName={(rule: any, sheet?: any): string => rule.key}>
+          <Clock />
+        </JssProvider>
       </Provider>
     );
   });

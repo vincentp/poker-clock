@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import "./App.sass";
+import styles from "./App.styles";
+// @ts-ignore
+import withStyles from "react-jss";
 import Clock from "./components/clock/clock";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "./actions/actionTypes";
 import { connect } from "react-redux";
+import classNames from 'classnames';
 
 interface ComponentProps {
   startClock: () => void;
@@ -10,6 +13,7 @@ interface ComponentProps {
   resetClock: () => void;
   tickClock: ()  => void;
   clock: any;
+  classes: any;
 }
 
 interface ComponentState {  
@@ -49,18 +53,23 @@ class App extends Component <ComponentProps, ComponentState> {
   };
 
   render() {
+    const { classes, clock } = this.props;
+
     return (
-      <div className="app">
-        <header className="app-header">
+      <div className={classes.app}>
+        <header className={classes.header}>
           <span>Poker Clock</span>
         </header>
         <Clock />
-        <button onClick={this.toggleClock} className="btn btn-light clock-toggle">
-          { this.props.clock.status === "STARTED" ? "PAUSE" : "START" }
+        <button onClick={this.toggleClock} className={classNames("btn", "btn-light", classes.clockToggle)}>
+          { clock.status === "STARTED" ? "PAUSE" : "START" }
         </button>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(App));

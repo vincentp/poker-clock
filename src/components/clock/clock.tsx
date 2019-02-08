@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+// @ts-ignore
+import withStyles from "react-jss";
+import styles from "./styles";
 
 interface ComponentProps {
   clock: any;
+  classes: any;
 }
 
-interface ComponentState {  
+interface ComponentState {
   clock: any;
 }
 
@@ -17,8 +21,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {};
 };
 
-class Clock extends Component <ComponentProps, ComponentState> {
-
+class Clock extends Component<ComponentProps, ComponentState> {
   constructor(props: ComponentProps) {
     super(props);
   }
@@ -26,7 +29,7 @@ class Clock extends Component <ComponentProps, ComponentState> {
   formatTotalSeconds(totalSeconds: number) {
     let secondsLabel = this.formatValue(totalSeconds % 60);
     let minutesLabel = this.formatValue(Math.floor(totalSeconds / 60));
-    let hoursLabel   = this.formatValue(Math.floor(totalSeconds / 3600));
+    let hoursLabel = this.formatValue(Math.floor(totalSeconds / 3600));
 
     return hoursLabel + ":" + minutesLabel + ":" + secondsLabel;
   }
@@ -41,14 +44,16 @@ class Clock extends Component <ComponentProps, ComponentState> {
   }
 
   render() {
+    const { classes, clock } = this.props;
+
     return (
-      <div className="clock-wrapper">
-        <div className="labels">
-          <span className="timer">
-            {this.formatTotalSeconds(this.props.clock.timer.totalSeconds)}
+      <div className={classes.wrapper}>
+        <div className={classes.labels}>
+          <span className={classes.timer}>
+            {this.formatTotalSeconds(clock.timer.totalSeconds)}
           </span>
-          <span className="clock">
-            {this.formatTotalSeconds(this.props.clock.totalSeconds)}
+          <span className={classes.clock}>
+            {this.formatTotalSeconds(clock.totalSeconds)}
           </span>
         </div>
       </div>
@@ -56,4 +61,7 @@ class Clock extends Component <ComponentProps, ComponentState> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Clock);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Clock));
