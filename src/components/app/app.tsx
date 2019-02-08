@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import styles from "./App.styles";
+import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
-import Clock from "./components/clock/clock";
-import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "./actions/actionTypes";
+import Clock from "../../components/clock/clock";
+import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "../../actions/actionTypes";
 import { connect } from "react-redux";
 import classNames from 'classnames';
 

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import { mount } from "./enzyme";
+import App from "./app";
+import { mount } from "../../enzyme";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { START_CLOCK } from "./actions/actionTypes";
+import { START_CLOCK } from "../../actions/actionTypes";
 
 // @ts-ignore
 import { JssProvider } from 'react-jss'
