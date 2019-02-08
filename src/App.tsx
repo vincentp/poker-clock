@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.sass";
-import { Clock } from "./services/clock";
+import Clock from "./components/clock/clock";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "./actions/actionTypes";
 import { connect } from "react-redux";
 
@@ -54,16 +54,7 @@ class App extends Component <ComponentProps, ComponentState> {
         <header className="app-header">
           <span>Poker Clock</span>
         </header>
-        <div className="circled-clock">
-          <div className="labels">
-            <span className="timer-label">
-              {Clock.formatTotalSeconds(this.props.clock.timer.totalSeconds)}
-            </span>
-            <span className="clock-label">
-              {Clock.formatTotalSeconds(this.props.clock.totalSeconds)}
-            </span>
-          </div>
-        </div>
+        <Clock />
         <button onClick={this.toggleClock} className="btn btn-light clock-toggle">
           { this.props.clock.status === "STARTED" ? "PAUSE" : "START" }
         </button>

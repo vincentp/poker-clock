@@ -9,7 +9,8 @@ import { START_CLOCK } from "./actions/actionTypes";
 describe("App Component", () => {
   const initialState = { clock: { status: 'PAUSED', timer: {} } };
   const mockStore = configureStore();
-  let store, wrapper;
+  let store: any;
+  let wrapper: any;
 
   beforeEach(() => {
     store = mockStore(initialState);
