@@ -50,10 +50,10 @@ class Clock extends Component<ComponentProps, ComponentState> {
       this.props.startClock();
   };
 
-  formatTotalSeconds(totalSeconds: number) {
-    let secondsLabel = this.formatValue(totalSeconds % 60);
-    let minutesLabel = this.formatValue(Math.floor(totalSeconds / 60));
-    let hoursLabel = this.formatValue(Math.floor(totalSeconds / 3600));
+  formatSeconds(seconds: number) {
+    let secondsLabel = this.formatValue(seconds % 60);
+    let minutesLabel = this.formatValue(Math.floor(seconds / 60));
+    let hoursLabel = this.formatValue(Math.floor(seconds / 3600));
 
     return hoursLabel + ":" + minutesLabel + ":" + secondsLabel;
   }
@@ -70,20 +70,23 @@ class Clock extends Component<ComponentProps, ComponentState> {
   render() {
     const { classes, clock } = this.props;
 
+    let circleDiamter = window.innerHeight * 0.9;
+
     let styles = {
-      width: window.innerHeight * 0.9,
-      height: window.innerHeight * 0.9,
-      borderWidth: Math.floor(window.innerHeight * 0.9 / 30)
+      width: circleDiamter,
+      height: circleDiamter,
+      marginLeft: circleDiamter / 2 * -1,
+      borderWidth: Math.floor(circleDiamter / 30)
     };
 
     return (
       <div className={classes.circle} style={styles}>
         <div className={classes.content}>
           <span className={classes.timer}>
-            {this.formatTotalSeconds(clock.timer.totalSeconds)}
+            {this.formatSeconds(clock.timers[clock.activeTimer].secondsLeft)}
           </span>
           <span className={classes.clock}>
-            {this.formatTotalSeconds(clock.totalSeconds)}
+            {this.formatSeconds(clock.totalSeconds)}
           </span>
           <button onClick={this.toggle} className={classNames("btn", "btn-light", classes.toggle)}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }

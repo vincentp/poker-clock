@@ -1,10 +1,15 @@
 import initialState from "./initialState";
-import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "../actions/actionTypes";
+import {
+  START_CLOCK,
+  PAUSE_CLOCK,
+  RESET_CLOCK,
+  TICK_CLOCK,
+  UPDATE_TIMERS
+} from "../actions/actionTypes";
 
 export default function clock(state = initialState.clock, action: any) {
-
   let newState;
-  
+  console.log("new", state, action);
   switch (action.type) {
     case START_CLOCK:
       newState = Object.assign({}, state);
@@ -17,15 +22,19 @@ export default function clock(state = initialState.clock, action: any) {
     case TICK_CLOCK:
       newState = Object.assign({}, state);
       newState.totalSeconds++;
-      newState.timer.totalSeconds--;
+      newState.timers[state.activeTimer].secondsLeft--;
       return newState;
     case RESET_CLOCK:
       return Object.assign({}, state, {
         totalSeconds: 0,
         status: "PAUSED",
         timer: {
-          totalSeconds: 10
+          secondsLeft: 10
         }
+      });
+    case UPDATE_TIMERS:
+      return Object.assign({}, state, {
+        timers: action.timers
       });
     default:
       return state;

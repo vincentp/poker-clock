@@ -1,9 +1,9 @@
 export default {
 
   circle: {
-    position: 'relative',
-    top: '0.05%',
-    margin: '0 auto',
+    position: 'fixed',
+    top: '5%',
+    left: '50%',
     border: '1px solid white',
     borderRadius: '50%',
     textAlign: 'center',

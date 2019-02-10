@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
-import Clock from "../clock/clock";
-import Sidebar from "../sidebar/sidebar";
+import Timers from "../timers/timers";
 import { connect } from "react-redux";
 
 interface ComponentProps {
@@ -21,7 +20,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {};
 };
 
-class App extends Component <ComponentProps, ComponentState> {
+class Sidebar extends Component <ComponentProps, ComponentState> {
 
   constructor(props: ComponentProps) {
     super(props);
@@ -31,12 +30,8 @@ class App extends Component <ComponentProps, ComponentState> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.app}>
-        <header className={classes.header}>
-          <span>Poker Clock</span>
-        </header>
-        <Sidebar />
-        <Clock />
+      <div className={classes.sidebar}>
+        <Timers />
       </div>
     );
   }
@@ -45,4 +40,4 @@ class App extends Component <ComponentProps, ComponentState> {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(App));
+)(withStyles(styles)(Sidebar));
