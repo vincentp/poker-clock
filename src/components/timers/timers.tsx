@@ -4,15 +4,17 @@ import styles from "./styles";
 import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { Form, Button, Table } from "semantic-ui-react";
-import { UPDATE_TIMERS } from "../../actions/actionTypes";
+import { UPDATE_TIMERS, RESET_STATE } from "../../actions/actionTypes";
 import { Timer } from "../../common/types"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
   addTimer: (timer: Timer) => void;
+  resetTimers: () => any;
   timers: Timer[];
   classes: any;
+  history: any;
 }
 
 interface ComponentState {
@@ -26,7 +28,8 @@ const mapStateToProps = (state: ComponentState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateTimers: (timers: Timer[]) => dispatch({ type: UPDATE_TIMERS, timers: timers })
+    updateTimers: (timers: Timer[]) => dispatch({ type: UPDATE_TIMERS, timers: timers }),
+    resetTimers: () => dispatch({ type: RESET_STATE })    
   };
 };
 
@@ -40,6 +43,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
   handleSubmit(event: any) {
     this.props.updateTimers(this.state.timers);
+    this.redirectToHome();
     event.preventDefault();
   }
 
@@ -76,7 +80,23 @@ class Timers extends Component<ComponentProps, ComponentState> {
   }
 
   handleCancel() {
+    this.redirectToHome();
+  }
 
+  componentWillReceiveProps(nextProps: ComponentProps) {
+    this.setState({
+      timers: nextProps.timers
+    });
+  }
+
+  handleReset() {
+    this.props.resetTimers();
+  }
+
+  redirectToHome() {
+    this.props.history.push({
+       pathname: '/'
+    });    
   }
 
   render() {
@@ -114,6 +134,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
           <Button onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
           <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
+          <Button onClick={this.handleReset.bind(this)}>Reset</Button>
         </Form>
       </div>
     );
@@ -123,4 +144,4 @@ class Timers extends Component<ComponentProps, ComponentState> {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Timers));
+)(withRouter(withStyles(styles)(Timers)));

@@ -1,4 +1,4 @@
-import initialState from "./initialState";
+import { initialState } from "./initialState";
 import {
   START_CLOCK,
   PAUSE_CLOCK,
@@ -42,7 +42,6 @@ export default function clock(state = initialState.clock, action: any) {
       return Object.assign({}, state, {
         activeTimer: state.activeTimer + 1
       });
-      return 
     default:
       return state;
   }
