@@ -67,7 +67,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
   }
 
   addTimer(timer: Timer) {
-    let newState = Object.assign({}, this.state);
+    let newState = cloneDeep(this.state);
     
     newState.timers.push({
       secondsLeft: timer.secondsLeft,
