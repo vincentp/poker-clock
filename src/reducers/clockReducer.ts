@@ -4,7 +4,8 @@ import {
   PAUSE_CLOCK,
   RESET_CLOCK,
   TICK_CLOCK,
-  UPDATE_TIMERS
+  UPDATE_TIMERS,
+  NEXT_TIMER
 } from "../actions/actionTypes";
 
 export default function clock(state = initialState.clock, action: any) {
@@ -28,14 +29,20 @@ export default function clock(state = initialState.clock, action: any) {
       return Object.assign({}, state, {
         totalSeconds: 0,
         status: "PAUSED",
-        timer: {
-          secondsLeft: 10
-        }
+        timers: state.timers.map(timer => {
+          timer.secondsLeft = timer.minutes * 60;
+          return timer;
+        })
       });
     case UPDATE_TIMERS:
       return Object.assign({}, state, {
         timers: action.timers
       });
+    case NEXT_TIMER:
+      return Object.assign({}, state, {
+        activeTimer: state.activeTimer + 1
+      });
+      return 
     default:
       return state;
   }

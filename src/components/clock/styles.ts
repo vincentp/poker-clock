@@ -25,6 +25,9 @@ export default {
     fontSize: 'calc(20px + 2vmin)'
   },
   toggle: {
+  },
+  reset: {
+    
   }
 
 };

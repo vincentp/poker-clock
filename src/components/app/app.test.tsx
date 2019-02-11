@@ -4,12 +4,21 @@ import App from "./app";
 import { mount } from "../../enzyme";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // @ts-ignore
 import { JssProvider } from 'react-jss'
 
 describe("App Component", () => {
-  const initialState = { clock: { timer: {} } };
+  const initialState = { 
+    clock: { 
+      totalSeconds: 0,
+      status: "PAUSED",
+      activeTimer: 0,
+      timers: [{ secondsLeft: 60, minutes: 1 }] 
+    } 
+  };
+  
   const mockStore = configureStore();
   let store: any;
   let wrapper: any;
@@ -19,7 +28,9 @@ describe("App Component", () => {
     wrapper = mount(
       <Provider store={store}>
         <JssProvider generateClassName={(rule: any, sheet?: any): string => rule.key}>
-          <App />
+          <Router>
+            <App />
+          </Router>
         </JssProvider>
       </Provider>
     );

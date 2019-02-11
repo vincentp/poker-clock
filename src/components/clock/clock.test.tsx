@@ -10,9 +10,15 @@ import { START_CLOCK } from "../../actions/actionTypes";
 import { JssProvider } from "react-jss";
 
 describe("App Component", () => {
-  const initialState = {
-    clock: { status: "PAUSED", totalSeconds: 0, timer: { secondsLeft: 70 } }
+  const initialState = { 
+    clock: { 
+      totalSeconds: 0,
+      status: "PAUSED",
+      activeTimer: 0,
+      timers: [{ secondsLeft: 70, minutes: 1 }] 
+    } 
   };
+
   const mockStore = configureStore();
   let store: any;
   let wrapper: any;

@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 // @ts-ignore
 import withStyles from "react-jss";
 import styles from "./styles";
-import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK, TICK_CLOCK } from "../../actions/actionTypes";
+import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK } from "../../actions/actionTypes";
 import classNames from 'classnames';
+import { tickActiveTimer } from "../../middlewares/timerMiddleware"
 
 interface ComponentProps {
   startClock: () => void;
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch: any) => {
     startClock: () => dispatch({ type: START_CLOCK }),
     pauseClock: () => dispatch({ type: PAUSE_CLOCK }),
     resetClock: () => dispatch({ type: RESET_CLOCK }),
-    tickClock: ()  => dispatch({ type: TICK_CLOCK })
+    tickClock:  () => dispatch(tickActiveTimer())
   };
 };
 
@@ -68,7 +69,7 @@ class Clock extends Component<ComponentProps, ComponentState> {
   }
 
   render() {
-    const { classes, clock } = this.props;
+    const { classes, clock, resetClock } = this.props;
 
     let circleDiamter = window.innerHeight * 0.9;
 
@@ -91,6 +92,9 @@ class Clock extends Component<ComponentProps, ComponentState> {
           <button onClick={this.toggle} className={classNames("btn", "btn-light", classes.toggle)}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }
           </button>            
+          <button onClick={resetClock} className={classNames("btn", "btn-light", classes.reset)}>
+            RESET
+          </button> 
         </div>
       </div>
     );

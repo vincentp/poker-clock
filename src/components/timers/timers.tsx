@@ -46,6 +46,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
   handleChange(id: number, event: any) {
     let newState = Object.assign({}, this.state);
     newState.timers[id].minutes = Math.floor(event.target.value);
+    newState.timers[id].secondsLeft = newState.timers[id].minutes * 60;
     this.setState(newState);
     event.preventDefault();
   }

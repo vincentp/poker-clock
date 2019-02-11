@@ -21,10 +21,6 @@ const mapStateToProps = (state: ComponentState) => {
   return { timers: state.clock.timers };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {};
-};
-
 class Sidebar extends Component <ComponentProps, ComponentState> {
 
   constructor(props: ComponentProps) {
@@ -66,5 +62,5 @@ class Sidebar extends Component <ComponentProps, ComponentState> {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(withStyles(styles)(Sidebar));
