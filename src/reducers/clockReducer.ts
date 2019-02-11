@@ -10,7 +10,7 @@ import {
 
 export default function clock(state = initialState.clock, action: any) {
   let newState;
-  console.log("new", state, action);
+  
   switch (action.type) {
     case START_CLOCK:
       newState = Object.assign({}, state);
