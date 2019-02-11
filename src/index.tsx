@@ -2,15 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
+import Timers from "./components/timers/timers";
 import * as serviceWorker from "./serviceWorker";
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <div>
+        <Route exact path="/" component={App} />
+        <Route path="/timers" component={Timers} />
+      </div>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

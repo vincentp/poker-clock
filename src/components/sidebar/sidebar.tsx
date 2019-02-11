@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
-import Timers from "../timers/timers";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 interface ComponentProps {
   classes: any;
@@ -31,7 +31,7 @@ class Sidebar extends Component <ComponentProps, ComponentState> {
 
     return (
       <div className={classes.sidebar}>
-        <Timers />
+       <Link to="/timers">Settings</Link>
       </div>
     );
   }

@@ -1,7 +1,6 @@
 export default {
 
   app: {
-    backgroundColor: '#1c222e',
     height: '100%'
   },
   header: {

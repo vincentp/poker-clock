@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Form, Button, Table } from "semantic-ui-react";
 import { UPDATE_TIMERS } from "../../actions/actionTypes";
 import { Timer } from "../../common/types"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
@@ -73,6 +74,10 @@ class Timers extends Component<ComponentProps, ComponentState> {
     this.setState(newState);
   }
 
+  handleCancel() {
+
+  }
+
   render() {
     const { classes, timers } = this.props;
 
@@ -97,6 +102,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
     return (
       <div className={classes.timers}>
+         <Link to="/">Back</Link>
         <Form>
           <Table>
             <Table.Body>
@@ -106,6 +112,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
           <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
           <Button onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
+          <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
         </Form>
       </div>
     );
