@@ -1,3 +1,5 @@
+import common from "../../common/styles";
+
 export default {
 
   circle: {
@@ -7,7 +9,7 @@ export default {
     border: '1px solid white',
     borderRadius: '50%',
     textAlign: 'center',
-    color: 'white'
+    color: common.colors.text
   },
   content: {
     position: 'relative',
@@ -25,6 +27,7 @@ export default {
     fontSize: 'calc(20px + 2vmin)'
   },
   toggle: {
+    ...common.elements.btn
   },
   reset: {
     

@@ -13,10 +13,10 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <div>
+      <>
         <Route exact path="/" component={App} />
         <Route path="/timers" component={Timers} />
-      </div>
+      </>
     </Router>
   </Provider>,
   document.getElementById("root")

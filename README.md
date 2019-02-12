@@ -1,23 +1,17 @@
 # Poker Clock
 
+Free Poker Clock built with React, see live app on:
+
 <https://poker-clock.herokuapp.com/>
 
-## Lib Used
-
-Bootstrap for React:
-https://reactstrap.github.io/
-
-Tests:
-https://facebook.github.io/create-react-app/docs/running-tests
-
 ## Ideas
-
-    - poker countdown
-    - global countdown
-    - every interval countdown
-    - ability to invite people
-    - see people playing, add perks
-    - add who bought what (buy in, re buy, add on)
-    - add buy in price etc. (pick currency)
-    - calculate number of chips for everyone
-    - link to marketplace to buy stuff etc.
+    
+* Timers' settings: add ante
+* Timers' settings: add when the tournament starts
+* Social: ability to invite people to a party with yes/no replies
+* Account: save your settings
+* Settings: set buy-in, re-buy, add-on (set currency)
+* Settings: change layout colors
+* Settings: add sounds
+* Chip calculator (based on number of players and chips values available)
+* Social: share settings, people can re-use, comments on them

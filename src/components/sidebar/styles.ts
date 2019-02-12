@@ -1,9 +1,12 @@
+import common from "../../common/styles";
+
 export default {
 
   sidebar: {
+    maxWidth: '250px',
+    
     '& table': {
-      color: 'white',
-      width: '300px'
+      color: common.colors.text
     }
   }
 
