@@ -19,6 +19,7 @@ interface ComponentProps {
 
 interface ComponentState {
   clock: any;
+  dimensions: any;
 }
 
 const mapStateToProps = (state: ComponentState) => {
@@ -69,22 +70,42 @@ class Clock extends Component<ComponentProps, ComponentState> {
     }
   }
 
-  render() {
-    const { classes, clock, resetClock } = this.props;
-
+  calculateDimensions () {
     const circleDiamter = window.innerHeight * 0.9;
 
-    const styles = {
+    return {
       width: circleDiamter,
       height: circleDiamter,
       marginLeft: circleDiamter / 2 * -1,
       borderWidth: Math.floor(circleDiamter / 30)
     };
+  }
+
+  updateDimensions() {
+    this.setState(Object.assign({}, this.state, { 
+      dimensions: this.calculateDimensions()
+    }));
+  }
+
+  componentWillMount() {
+    this.updateDimensions();
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDimensions.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+  }
+
+  render() {
+    const { classes, clock, resetClock } = this.props;
 
     const activeTimer: Timer = clock.timers[clock.activeTimer];
 
     return (
-      <div className={classes.circle} style={styles}>
+      <div className={classes.circle} style={this.state.dimensions}>
         <div className={classes.actions}>
           <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", classes.toggle)}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }
