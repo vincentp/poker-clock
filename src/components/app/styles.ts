@@ -3,12 +3,13 @@ import common from "../../common/styles";
 export default {
 
   app: {
-    height: '100%',
+    minHeight: '100%',
     backgroundColor: common.colors.background
   },
   header: {
-    fontSize: 'calc(10px + 2vmin)',
-    color: common.colors.title
+    fontSize: 'calc(16px + 2vmin)',
+    color: common.colors.title,
+    padding: '10px'
   }
   
 };

@@ -5,7 +5,8 @@ import withStyles from "react-jss";
 import styles from "./styles";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK } from "../../actions/actionTypes";
 import classNames from 'classnames';
-import { tickActiveTimer } from "../../middlewares/timerMiddleware"
+import { tickActiveTimer } from "../../middlewares/timerMiddleware";
+import { Timer } from "../../common/types";
 
 interface ComponentProps {
   startClock: () => void;
@@ -71,30 +72,37 @@ class Clock extends Component<ComponentProps, ComponentState> {
   render() {
     const { classes, clock, resetClock } = this.props;
 
-    let circleDiamter = window.innerHeight * 0.9;
+    const circleDiamter = window.innerHeight * 0.9;
 
-    let styles = {
+    const styles = {
       width: circleDiamter,
       height: circleDiamter,
       marginLeft: circleDiamter / 2 * -1,
       borderWidth: Math.floor(circleDiamter / 30)
     };
 
+    const activeTimer: Timer = clock.timers[clock.activeTimer];
+
     return (
       <div className={classes.circle} style={styles}>
+        <div className={classes.actions}>
+          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", classes.toggle)}>
+            { clock.status === "STARTED" ? "PAUSE" : "START" }
+          </button>            
+          <div className={classNames("ui", "hidden", "divider")}></div>
+          <button onClick={resetClock} className={classNames("ui", "button", "mini")}>
+            RESET
+          </button> 
+        </div>
         <div className={classes.content}>
-          <span className={classes.timer}>
-            {this.formatSeconds(clock.timers[clock.activeTimer].secondsLeft)}
-          </span>
+          <span className={classes.blindsTitle}>Blinds</span>
+          <span className={classes.blindsValues}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</span>
           <span className={classes.clock}>
             {this.formatSeconds(clock.totalSeconds)}
           </span>
-          <button onClick={this.toggle} className={classNames("btn", "btn-light", classes.toggle)}>
-            { clock.status === "STARTED" ? "PAUSE" : "START" }
-          </button>            
-          <button onClick={resetClock} className={classNames("btn", "btn-light", classes.reset)}>
-            RESET
-          </button> 
+          <span className={classes.timer}>
+            {this.formatSeconds(activeTimer.secondsLeft)}
+          </span>
         </div>
       </div>
     );

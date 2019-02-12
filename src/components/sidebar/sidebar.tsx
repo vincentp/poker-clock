@@ -4,27 +4,35 @@ import styles from "./styles";
 import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Timer } from "../../common/types"
+import { Timer } from "../../common/types";
 import { Table } from "semantic-ui-react";
 
 interface ComponentProps {
   timers: Timer[];
+  activeTimer: number;
   classes: any;
 }
 
 interface ComponentState {
   clock?: any;
   timers: Timer[];
+  activeTimer: number;
 }
 
 const mapStateToProps = (state: ComponentState) => {
-  return { timers: state.clock.timers };
+  return { 
+    activeTimer: state.clock.activeTimer,
+    timers: state.clock.timers 
+  };
 };
 
-class Sidebar extends Component <ComponentProps, ComponentState> {
-
+class Sidebar extends Component<ComponentProps, ComponentState> {
   constructor(props: ComponentProps) {
     super(props);
+  }
+
+  timerStatusClassName(id: number) {
+    return this.props.activeTimer === id ? 'active' : '';
   }
 
   render() {
@@ -32,44 +40,42 @@ class Sidebar extends Component <ComponentProps, ComponentState> {
 
     let timersEl = timers.map((timer, i) => {
       return (
-        <Table.Row key={i}>
+        <Table.Row key={i} className={this.timerStatusClassName(i)}>
           <Table.Cell>
             <span>{i + 1}</span>
           </Table.Cell>
-          <Table.Cell>
-            {!timer.break ? ( 
-              timer.minutes + 'min'
-            ) : (
-              'BREAK'
-            )}
-          </Table.Cell>
-          <Table.Cell>
-            {timer.break === false &&
-              <span>
-                <i className="fas fa-coins"></i>
+          <Table.Cell>{timer.minutes + "min"}</Table.Cell>
+          {!timer.break ? (
+            <>
+              <Table.Cell>
+                <i className="fas fa-coins" />
                 {timer.smallBlind}
-              </span>
-            }
-          </Table.Cell>
-          <Table.Cell>
-            {timer.break === false &&
-              <span>
-                <i className="fas fa-coins"></i>
+              </Table.Cell>
+              <Table.Cell>
+                <i className="fas fa-coins" />
                 {timer.bigBlind}
-              </span>
-            }
-          </Table.Cell>
+              </Table.Cell>
+            </>
+          ) : (
+            <Table.Cell colSpan="2" className="ui center aligned">
+              BREAK
+            </Table.Cell>
+          )}
         </Table.Row>
       );
     });
 
     return (
       <div className={classes.sidebar}>
-       <Link to="/timers">Settings</Link>
-        <Table>
-          <Table.Body>
-            {timersEl}
-           </Table.Body>
+        <Table className={classes.timers}>
+          <Table.Body>{timersEl}</Table.Body>
+          <Table.Footer>
+            <Table.Row>
+              <Table.Cell colSpan="4">
+                <Link to="/timers">Settings</Link>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table>
       </div>
     );

@@ -4,7 +4,7 @@ import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
 import { connect } from "react-redux";
-import { Form, Button, Table } from "semantic-ui-react";
+import { Form, Button, Table, Container } from "semantic-ui-react";
 import { UPDATE_TIMERS, RESET_STATE } from "../../actions/actionTypes";
 import { Timer } from "../../common/types"
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
@@ -123,29 +123,29 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <Table.Cell>
             <span>{i + 1}</span>
           </Table.Cell>
-          <Table.Cell>
-            {!timer.break ? ( 
-              <Form.Field>
-                <input value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
-              </Form.Field>
-            ) : (
-              'BREAK'
-            )}
-          </Table.Cell>
-          <Table.Cell>
-            {timer.break === false && 
-              <Form.Field>
-                <input value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
-              </Form.Field>
-            }
-          </Table.Cell>
-          <Table.Cell>
-            {timer.break === false &&
-              <Form.Field>
-                <input value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
-              </Form.Field>
-            }
-          </Table.Cell>
+          {!timer.break ? ( 
+            <>
+              <Table.Cell>
+                <Form.Field>
+                  <input value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
+                </Form.Field>
+              </Table.Cell>
+              <Table.Cell>
+                <Form.Field>
+                  <input value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
+                </Form.Field>
+              </Table.Cell>
+              <Table.Cell>
+                <Form.Field>
+                  <input value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
+                </Form.Field>
+              </Table.Cell>
+            </>
+          ) : (
+            <Table.Cell colSpan="3">
+              BREAK
+            </Table.Cell>
+          )}
           <Table.Cell>
             <Button onClick={this.removeTimer.bind(this, i)}>Remove</Button>
           </Table.Cell>
@@ -155,34 +155,47 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
     return (
       <div className={classes.timers}>
-        <Link to="/">Back</Link>
-        <Form>
-          <Table>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Level</Table.HeaderCell>
-                <Table.HeaderCell>Duration</Table.HeaderCell>
-                <Table.HeaderCell>
-                  <i className="fas fa-coins"></i>
-                  Small Blind
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                  <i className="fas fa-coins"></i>
-                  Big Blind
-                </Table.HeaderCell>
-                <Table.HeaderCell></Table.HeaderCell>
-              </Table.Row>
-             </Table.Header>
-            <Table.Body>
-              {timersEl}
-             </Table.Body>
-          </Table>
-          <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
-          <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
-          <Button onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
-          <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
-          <Button onClick={this.handleReset.bind(this)}>Reset</Button>
-        </Form>
+        <Container>
+          <Link to="/" className={classes.back}>
+            <i className="fas fa-chevron-left"></i>
+            Back
+          </Link>
+          <Form>
+            <Table>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Level</Table.HeaderCell>
+                  <Table.HeaderCell>Duration</Table.HeaderCell>
+                  <Table.HeaderCell>Small Blind</Table.HeaderCell>
+                  <Table.HeaderCell>Big Blind</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+               </Table.Header>
+              <Table.Body>
+                {timersEl}
+               </Table.Body>
+              <Table.Footer>
+                <Table.Row>
+                  <Table.Cell></Table.Cell>
+                  <Table.Cell colSpan="3">
+                    <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
+                    <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Button onClick={this.handleReset.bind(this)}>Reset all</Button>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell></Table.Cell>
+                  <Table.Cell colSpan="4">
+                    <Button onClick={this.handleSubmit.bind(this)} type='submit' className="primary">Save</Button>
+                    <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Footer>             
+            </Table>
+          </Form>
+        </Container>
       </div>
     );
   }
