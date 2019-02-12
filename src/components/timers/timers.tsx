@@ -88,6 +88,12 @@ class Timers extends Component<ComponentProps, ComponentState> {
     this.setState(newState);
   }
 
+  removeTimer(id: number) {
+    let newState = cloneDeep(this.state);   
+    newState.timers.splice(id, 1);
+    this.setState(newState);
+  }
+
   handleCancel() {
     this.redirectToHome();
   }
@@ -140,6 +146,9 @@ class Timers extends Component<ComponentProps, ComponentState> {
               </Form.Field>
             }
           </Table.Cell>
+          <Table.Cell>
+            <Button onClick={this.removeTimer.bind(this, i)}>Remove</Button>
+          </Table.Cell>
         </Table.Row>
       );
     });
@@ -161,6 +170,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
                   <i className="fas fa-coins"></i>
                   Big Blind
                 </Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
               </Table.Row>
              </Table.Header>
             <Table.Body>
