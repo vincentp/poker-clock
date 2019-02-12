@@ -48,10 +48,18 @@ class Timers extends Component<ComponentProps, ComponentState> {
     event.preventDefault();
   }
 
-  handleChange(id: number, event: any) {
+  handleChange(id: number, field: string, event: any) {
     let newState = cloneDeep(this.state);
-    newState.timers[id].minutes = Math.floor(event.target.value);
-    newState.timers[id].secondsLeft = newState.timers[id].minutes * 60;
+
+    if (field === 'minutes') {
+      newState.timers[id].minutes = Math.floor(event.target.value);
+      newState.timers[id].secondsLeft = newState.timers[id].minutes * 60;
+    } else if (field === 'smallBlind') {
+      newState.timers[id].smallBlind = Math.floor(event.target.value);
+    } else if (field === 'bigBlind') {
+      newState.timers[id].bigBlind = Math.floor(event.target.value);
+    }
+
     this.setState(newState);
     event.preventDefault();
   }
@@ -101,7 +109,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
   }
 
   render() {
-    const { classes, timers } = this.props;
+    const { classes } = this.props;
 
     let timersEl = this.state.timers.map((timer, i) => {
       return (
@@ -112,11 +120,25 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <Table.Cell>
             {!timer.break ? ( 
               <Form.Field>
-                <input value={(timer.minutes).toString()} onChange={this.handleChange.bind(this, i)} />
+                <input value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
               </Form.Field>
             ) : (
               'BREAK'
             )}
+          </Table.Cell>
+          <Table.Cell>
+            {timer.break === false && 
+              <Form.Field>
+                <input value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
+              </Form.Field>
+            }
+          </Table.Cell>
+          <Table.Cell>
+            {timer.break === false &&
+              <Form.Field>
+                <input value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
+              </Form.Field>
+            }
           </Table.Cell>
         </Table.Row>
       );
@@ -124,9 +146,23 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
     return (
       <div className={classes.timers}>
-         <Link to="/">Back</Link>
+        <Link to="/">Back</Link>
         <Form>
           <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Level</Table.HeaderCell>
+                <Table.HeaderCell>Duration</Table.HeaderCell>
+                <Table.HeaderCell>
+                  <i className="fas fa-coins"></i>
+                  Small Blind
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  <i className="fas fa-coins"></i>
+                  Big Blind
+                </Table.HeaderCell>
+              </Table.Row>
+             </Table.Header>
             <Table.Body>
               {timersEl}
              </Table.Body>

@@ -43,6 +43,22 @@ class Sidebar extends Component <ComponentProps, ComponentState> {
               'BREAK'
             )}
           </Table.Cell>
+          <Table.Cell>
+            {timer.break === false &&
+              <span>
+                <i className="fas fa-coins"></i>
+                {timer.smallBlind}
+              </span>
+            }
+          </Table.Cell>
+          <Table.Cell>
+            {timer.break === false &&
+              <span>
+                <i className="fas fa-coins"></i>
+                {timer.bigBlind}
+              </span>
+            }
+          </Table.Cell>
         </Table.Row>
       );
     });
