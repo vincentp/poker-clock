@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Clock, calculateDimensions } from "./clock";
+import { ClockComponent, calculateDimensions } from "./clock";
 import { mount, shallow } from "../../setupTests";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
@@ -30,7 +30,7 @@ describe("App Component", () => {
     wrapper = mount(
       <Provider store={store}>
         <JssProvider generateClassName={(rule: any, sheet?: any): string => rule.key}>
-          <Clock />
+          <ClockComponent />
         </JssProvider>
       </Provider>
     );

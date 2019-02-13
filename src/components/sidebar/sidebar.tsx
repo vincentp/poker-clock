@@ -4,7 +4,7 @@ import styles from "./styles";
 import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Timer } from "../../common/types";
+import { AppState, Timer, Clock } from "../../common/types";
 import { Table } from "semantic-ui-react";
 
 interface ComponentProps {
@@ -14,12 +14,11 @@ interface ComponentProps {
 }
 
 interface ComponentState {
-  clock?: any;
   timers: Timer[];
   activeTimer: number;
 }
 
-const mapStateToProps = (state: ComponentState) => {
+const mapStateToProps = (state: AppState) => {
   return { 
     activeTimer: state.clock.activeTimer,
     timers: state.clock.timers 

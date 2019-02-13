@@ -1,3 +1,5 @@
+import { AppState } from "../common/types";
+
 export const loadState = () => {
   try {
     //localStorage.removeItem('state');
@@ -11,7 +13,7 @@ export const loadState = () => {
   }
 };
 
-export const saveState = (state: any) => {
+export const saveState = (state: AppState) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);

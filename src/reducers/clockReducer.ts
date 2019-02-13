@@ -1,4 +1,6 @@
 import { initialState } from "./initialState";
+import { ReduxAction, Timer } from "../common/types";
+
 import {
   START_CLOCK,
   PAUSE_CLOCK,
@@ -8,7 +10,7 @@ import {
   NEXT_TIMER
 } from "../actions/actionTypes";
 
-export default function clock(state = initialState.clock, action: any) {
+export default function clock(state = initialState.clock, action: ReduxAction) {
   let newState;
 
   switch (action.type) {

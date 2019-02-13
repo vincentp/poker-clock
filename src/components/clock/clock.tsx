@@ -7,19 +7,18 @@ import styles from "./styles";
 import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK } from "../../actions/actionTypes";
 import classNames from 'classnames';
 import { tickActiveTimer } from "../../middlewares/timerMiddleware";
-import { Timer } from "../../common/types";
+import { AppState, Timer, Clock } from "../../common/types";
 
 interface ComponentProps {
   startClock: () => void;
   pauseClock: () => void;
   resetClock: () => void;
   tickClock: ()  => void;
-  clock: any;
+  clock: Clock;
   classes?: any;
 }
 
 interface ComponentState {
-  clock: any;
   dimensions?: Dimensions;
 }
 
@@ -30,7 +29,7 @@ interface Dimensions {
   borderWidth: number;
 }
 
-const mapStateToProps = (state: ComponentState) => {
+const mapStateToProps = (state: AppState) => {
   return { clock: state.clock };
 };
 
@@ -44,7 +43,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 @withStyles(styles)
-class ClockComponent extends Component<ComponentProps, ComponentState> {
+class ClockComponentNotConnected extends Component<ComponentProps, ComponentState> {
   
   tickInterval: number;
 
@@ -168,7 +167,7 @@ export const calculateDimensions = (circleDiameter: number, windowWidth: number,
   } as Dimensions;
 }
 
-export const Clock = connect(
+export const ClockComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClockComponent);
+)(ClockComponentNotConnected);

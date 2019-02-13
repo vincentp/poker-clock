@@ -6,25 +6,24 @@ import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { Form, Button, Table, Container } from "semantic-ui-react";
 import { UPDATE_TIMERS, RESET_STATE, PAUSE_CLOCK } from "../../actions/actionTypes";
-import { Timer } from "../../common/types"
+import { AppState, Timer, Clock } from "../../common/types"
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
   addTimer: (timer: Timer) => void;
-  resetTimers: () => any;
-  pauseClock: () => any;
+  resetTimers: () => void;
+  pauseClock: () => void;
   timers: Timer[];
   classes: any;
   history: any;
 }
 
 interface ComponentState {
-  clock?: any;
   timers: Timer[];
 }
 
-const mapStateToProps = (state: ComponentState) => {
+const mapStateToProps = (state: AppState) => {
   return { timers: state.clock.timers };
 };
 
@@ -44,22 +43,22 @@ class Timers extends Component<ComponentProps, ComponentState> {
     };
   }
 
-  handleSubmit(event: any) {
+  handleSubmit(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     this.props.updateTimers(this.state.timers);
     this.redirectToHome();
     event.preventDefault();
   }
 
-  handleChange(id: number, field: string, event: any) {
+  handleChange(id: number, field: string, event: React.ChangeEvent<HTMLInputElement>) {
     let newState = cloneDeep(this.state);
 
     if (field === 'minutes') {
-      newState.timers[id].minutes = Math.floor(event.target.value);
+      newState.timers[id].minutes = Number(event.target.value);
       newState.timers[id].secondsLeft = newState.timers[id].minutes * 60;
     } else if (field === 'smallBlind') {
-      newState.timers[id].smallBlind = Math.floor(event.target.value);
+      newState.timers[id].smallBlind = Number(event.target.value);
     } else if (field === 'bigBlind') {
-      newState.timers[id].bigBlind = Math.floor(event.target.value);
+      newState.timers[id].bigBlind = Number(event.target.value);
     }
 
     this.setState(newState);

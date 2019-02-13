@@ -2,25 +2,17 @@ import React, { Component } from "react";
 import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
-import { Clock } from "../clock/clock";
+import { ClockComponent } from "../clock/clock";
 import Sidebar from "../sidebar/sidebar";
 import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
 
 interface ComponentProps {
-  classes?: any;
+  classes: any;
 }
 
 interface ComponentState {  
 }
-
-const mapStateToProps = (state: ComponentState) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {};
-};
 
 @withStyles(styles)
 class App extends Component <ComponentProps, ComponentState> {
@@ -42,7 +34,7 @@ class App extends Component <ComponentProps, ComponentState> {
             <Sidebar />
           </Grid.Column>
           <Grid.Column id="clockColumn" computer={12}>
-            <Clock />
+            <ClockComponent />
           </Grid.Column>
         </Grid>
       </div>
@@ -51,6 +43,6 @@ class App extends Component <ComponentProps, ComponentState> {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  null
 )(App);
