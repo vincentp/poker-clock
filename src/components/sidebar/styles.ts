@@ -4,7 +4,7 @@ export default {
 
   sidebar: {
     marginTop: '50px',
-    maxWidth: '250px'
+    maxWidth: '280px'
   },
   timers: {
     background: 'none !important',
