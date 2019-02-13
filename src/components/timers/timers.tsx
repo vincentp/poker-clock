@@ -5,7 +5,7 @@ import styles from "./styles";
 import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { Form, Button, Table, Container } from "semantic-ui-react";
-import { UPDATE_TIMERS, RESET_STATE } from "../../actions/actionTypes";
+import { UPDATE_TIMERS, RESET_STATE, PAUSE_CLOCK } from "../../actions/actionTypes";
 import { Timer } from "../../common/types"
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
@@ -13,6 +13,7 @@ interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
   addTimer: (timer: Timer) => void;
   resetTimers: () => any;
+  pauseClock: () => any;
   timers: Timer[];
   classes: any;
   history: any;
@@ -30,7 +31,8 @@ const mapStateToProps = (state: ComponentState) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     updateTimers: (timers: Timer[]) => dispatch({ type: UPDATE_TIMERS, timers: timers }),
-    resetTimers: () => dispatch({ type: RESET_STATE })    
+    resetTimers: () => dispatch({ type: RESET_STATE }),
+    pauseClock: () => dispatch({ type: PAUSE_CLOCK })    
   };
 };
 
@@ -102,6 +104,10 @@ class Timers extends Component<ComponentProps, ComponentState> {
     this.setState({
       timers: nextProps.timers
     });
+  }
+
+  componentDidMount() {
+    this.props.pauseClock();
   }
 
   handleReset() {

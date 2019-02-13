@@ -46,9 +46,11 @@ const mapDispatchToProps = (dispatch: any) => {
 @withStyles(styles)
 class ClockComponent extends Component<ComponentProps, ComponentState> {
   
+  tickInterval: number;
+
   constructor(props: ComponentProps) {
     super(props);
-    setInterval(this.tick, 1000);
+    this.tickInterval = window.setInterval(this.tick, 1000);
   }
 
   tick = () => {
@@ -105,6 +107,7 @@ class ClockComponent extends Component<ComponentProps, ComponentState> {
   }
 
   componentWillUnmount() {
+    clearInterval(this.tickInterval);
     window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
 

@@ -4,13 +4,14 @@ import ReactDOM from "react-dom";
 import { mount } from "../setupTests";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { TICK_CLOCK, NEXT_TIMER } from "../actions/actionTypes";
+import { TICK_CLOCK, NEXT_TIMER, PAUSE_CLOCK } from "../actions/actionTypes";
 import thunk from "redux-thunk";
 import { tickActiveTimer } from "./timerMiddleware"
 
 describe("Timer middleware Component", () => {
   const oneTimerState = { 
     clock: {
+      status: "STARTED",
       activeTimer: 0,
       timers: [{ secondsLeft: 60, minutes: 1 }] 
     } 
@@ -18,6 +19,7 @@ describe("Timer middleware Component", () => {
 
   const multipleTimersState = { 
     clock: {
+      status: "STARTED",
       activeTimer: 1,
       timers: [
         { secondsLeft: 60 },
@@ -43,6 +45,19 @@ describe("Timer middleware Component", () => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({ type: TICK_CLOCK });
     expect(actions[1]).toEqual(undefined);    
+  });
+
+  it("should pause the clock if the last timer is over", () => {
+    let state = {...multipleTimersState};
+    state.clock.activeTimer = 2;
+    state.clock.timers[0].secondsLeft = 0;
+    state.clock.timers[1].secondsLeft = 0;
+    state.clock.timers[2].secondsLeft = 0;
+    store = mockStore(state);
+    const actions = store.getActions();
+    store.dispatch(tickActiveTimer());
+    expect(actions[0]).toEqual({ type: PAUSE_CLOCK });
+    expect(actions[1]).toEqual(undefined);
   });
 
   it("should not go to the next timer if it's the last one", () => {
