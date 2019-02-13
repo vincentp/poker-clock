@@ -3,12 +3,14 @@ import { Timer } from "../common/types";
 
 export const tickActiveTimer = () => {
   return (dispatch: any, getState: any) => {
-    dispatch({ type: TICK_CLOCK });
+    const activeTimer = getState().clock.timers[getState().clock.activeTimer];
+    const nextTimer = getState().clock.timers[getState().clock.activeTimer + 1];
 
-    if (
-      getState().clock.timers[getState().clock.activeTimer].secondsLeft === 0 &&
-      getState().clock.timers[getState().clock.activeTimer + 1] !== undefined
-    )
-      dispatch({ type: NEXT_TIMER });
+    if (activeTimer.secondsLeft === 0 && nextTimer === undefined) {
+      // Do nothing, the last timer ended
+    } else {
+      dispatch({ type: TICK_CLOCK });
+      if (activeTimer.secondsLeft === 0) dispatch({ type: NEXT_TIMER });
+    }
   };
 };

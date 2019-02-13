@@ -54,8 +54,7 @@ describe("Timer middleware Component", () => {
     store = mockStore(state);
     const actions = store.getActions();
     store.dispatch(tickActiveTimer());
-    expect(actions[0]).toEqual({ type: TICK_CLOCK });
-    expect(actions[1]).toEqual(undefined);    
+    expect(actions[0]).toEqual(undefined);
   });
 
   it("should go to the next timer if there if it's not the last one", () => {
