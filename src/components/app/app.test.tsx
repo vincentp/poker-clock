@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./app";
-import { mount } from "../../enzyme";
+import { mount } from "../../setupTests";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -27,11 +27,11 @@ describe("App Component", () => {
     store = mockStore(initialState);
     wrapper = mount(
       <Provider store={store}>
-        <JssProvider generateClassName={(rule: any, sheet?: any): string => rule.key}>
-          <Router>
+        <Router>
+          <JssProvider generateClassName={(rule: any, sheet?: any): string => rule.key}>
             <App />
-          </Router>
-        </JssProvider>
+          </JssProvider>          
+        </Router>
       </Provider>
     );
   });

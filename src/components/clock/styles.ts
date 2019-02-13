@@ -5,7 +5,6 @@ export default {
   circle: {
     position: 'fixed',
     top: '5%',
-    left: '50%',
     border: {
       size: '1px',
       style: 'solid',
@@ -16,9 +15,7 @@ export default {
     color: common.colors.text
   },
   content: {
-    position: 'relative',
-    top: '50%',
-    marginTop: 'calc(-240px + 2vmin)'
+    marginTop: '10px'
   },
   blindsTitle: {
     color: common.colors.title,
@@ -29,27 +26,27 @@ export default {
   blindsValues: {
     display: 'block',
     width: '100%',
-    marginTop: '-20px',
+    marginTop: '-15px',
     fontSize: 'calc(22px + 2vmin)',
     lineHeight: common.lineHeight
   },
   clock: {
     display: 'block',
     width: '100%',
-    margin: '20px 0 0 0',
-    fontSize: 'calc(14px + 2vmin)',
+    margin: 'calc(20px + 2vmin) 0 0 0',
+    fontSize: '3vw',
     lineHeight: common.lineHeight
   },
   timer: {
     display: 'block',
     width: '100%',
-    fontSize: 'calc(80px + 2vmin)',
+    fontSize: '8vw',
     lineHeight: common.lineHeight
   },
   actions: {
     position: "absolute",
     width: "100%",
-    bottom: "20px",
+    bottom: "calc(20px + 2vmin)",
     "& .primary": {
       ...common.elements.primaryBtn
     }

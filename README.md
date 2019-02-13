@@ -4,6 +4,8 @@ Free Poker Clock built with React, see live app on:
 
 <https://poker-clock.herokuapp.com/>
 
+Working on tablets and desktop. Fixing mobile version.
+
 ## Ideas
     
 * Timers' settings: add ante

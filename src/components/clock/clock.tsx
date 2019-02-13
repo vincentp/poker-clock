@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 // @ts-ignore
 import withStyles from "react-jss";
@@ -14,12 +15,19 @@ interface ComponentProps {
   resetClock: () => void;
   tickClock: ()  => void;
   clock: any;
-  classes: any;
+  classes?: any;
 }
 
 interface ComponentState {
   clock: any;
-  dimensions: any;
+  dimensions?: Dimensions;
+}
+
+interface Dimensions {
+  width: number;
+  height: number;
+  right: number;
+  borderWidth: number;
 }
 
 const mapStateToProps = (state: ComponentState) => {
@@ -35,7 +43,9 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-class Clock extends Component<ComponentProps, ComponentState> {
+@withStyles(styles)
+class ClockComponent extends Component<ComponentProps, ComponentState> {
+  
   constructor(props: ComponentProps) {
     super(props);
     setInterval(this.tick, 1000);
@@ -70,20 +80,18 @@ class Clock extends Component<ComponentProps, ComponentState> {
     }
   }
 
-  calculateDimensions () {
-    const circleDiamter = window.innerHeight * 0.9;
-
-    return {
-      width: circleDiamter,
-      height: circleDiamter,
-      marginLeft: circleDiamter / 2 * -1,
-      borderWidth: Math.floor(circleDiamter / 30)
-    };
-  }
-
   updateDimensions() {
+    let dimensions = null;
+
+    const container = document.getElementById('clockColumn');
+
+    if (container) {
+      const circleDiameter = window.innerHeight * 0.9;
+      dimensions = calculateDimensions(circleDiameter, window.innerWidth, 300, container.offsetWidth);
+    }
+
     this.setState(Object.assign({}, this.state, { 
-      dimensions: this.calculateDimensions()
+      dimensions: dimensions
     }));
   }
 
@@ -92,6 +100,7 @@ class Clock extends Component<ComponentProps, ComponentState> {
   }
 
   componentDidMount() {
+    this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
 
@@ -107,7 +116,7 @@ class Clock extends Component<ComponentProps, ComponentState> {
     return (
       <div className={classes.circle} style={this.state.dimensions}>
         <div className={classes.actions}>
-          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", classes.toggle)}>
+          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary")}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }
           </button>            
           <div className={classNames("ui", "hidden", "divider")}></div>
@@ -130,7 +139,25 @@ class Clock extends Component<ComponentProps, ComponentState> {
   }
 }
 
-export default connect(
+export const calculateDimensions = (circleDiameter: number, windowWidth: number, sidebarWidth: number, clockContainerWidth: number) => {
+
+  // Center the clock within the window
+  let right = (windowWidth - circleDiameter) / 2;
+
+  // If the clock overlap the sidebar, there isn't enough space
+  // We center the clock within its container instead
+  if (right < sidebarWidth)
+    right = (clockContainerWidth - circleDiameter) / 2;
+
+  return {
+    width: circleDiameter,
+    height: circleDiameter,
+    right: right,
+    borderWidth: Math.floor(circleDiameter / 30)
+  } as Dimensions;
+}
+
+export const Clock = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Clock));
+)(ClockComponent);

@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 //import Clock from "./clock";
-import { mount } from "../enzyme";
+import { mount } from "../setupTests";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { TICK_CLOCK, NEXT_TIMER } from "../actions/actionTypes";
 import thunk from "redux-thunk";
 import { tickActiveTimer } from "./timerMiddleware"
-
-// @ts-ignore
-import { JssProvider } from "react-jss";
 
 describe("Timer middleware Component", () => {
   const oneTimerState = { 
