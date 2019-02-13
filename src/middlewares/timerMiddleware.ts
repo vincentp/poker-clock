@@ -10,7 +10,7 @@ export const tickActiveTimer = () => {
       // Do nothing, the last timer ended
     } else {
       dispatch({ type: TICK_CLOCK });
-      if (activeTimer.secondsLeft === 0) dispatch({ type: NEXT_TIMER });
+      if (activeTimer.secondsLeft === 0 && nextTimer !== undefined) dispatch({ type: NEXT_TIMER });
     }
   };
 };

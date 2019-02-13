@@ -14,6 +14,9 @@ export default {
     textAlign: 'center',
     color: common.colors.text
   },
+  hidden: {
+    visibility: "hidden"
+  },
   content: {
     marginTop: '10px'
   },

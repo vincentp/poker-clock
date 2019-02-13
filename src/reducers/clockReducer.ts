@@ -29,6 +29,7 @@ export default function clock(state = initialState.clock, action: any) {
       return Object.assign({}, state, {
         totalSeconds: 0,
         status: "PAUSED",
+        activeTimer: 0,
         timers: state.timers.map(timer => {
           timer.secondsLeft = timer.minutes * 60;
           return timer;

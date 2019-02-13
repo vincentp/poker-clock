@@ -113,10 +113,12 @@ class ClockComponent extends Component<ComponentProps, ComponentState> {
 
     const activeTimer: Timer = clock.timers[clock.activeTimer];
 
+    const hidden = activeTimer.secondsLeft === 0 ? classes.hidden : {};
+
     return (
       <div className={classes.circle} style={this.state.dimensions}>
         <div className={classes.actions}>
-          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary")}>
+          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", hidden)}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }
           </button>            
           <div className={classNames("ui", "hidden", "divider")}></div>
@@ -125,8 +127,14 @@ class ClockComponent extends Component<ComponentProps, ComponentState> {
           </button> 
         </div>
         <div className={classes.content}>
-          <span className={classes.blindsTitle}>Blinds</span>
-          <span className={classes.blindsValues}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</span>
+          { !activeTimer.break ? (
+            <>
+              <span className={classNames(classes.blindsTitle, hidden)}>Blinds</span>
+              <span className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</span>
+            </>
+          ) : (
+            <span className={classNames(classes.blindsTitle, hidden)}>Break</span>
+          )}
           <span className={classes.clock}>
             {this.formatSeconds(clock.totalSeconds)}
           </span>
