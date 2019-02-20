@@ -6,10 +6,11 @@ export default {
     minHeight: '100%',
     backgroundColor: common.colors.background
   },
-  header: {
+  name: {
     fontSize: 'calc(16px + 2vmin)',
+    fontWeight: 600,
     color: common.colors.title,
-    padding: '10px'
+    paddingLeft: '10px'
   }
   
 };

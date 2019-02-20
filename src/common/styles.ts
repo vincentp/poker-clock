@@ -3,7 +3,9 @@ export default {
   colors: {
     title: '#BFDBF7',
     text: 'white',
-    background: '#00241B'
+    background: '#00241B',
+    darkText: '#333333',
+    link: '#BFDBF7'
   },
   elements: {
     primaryBtn: {

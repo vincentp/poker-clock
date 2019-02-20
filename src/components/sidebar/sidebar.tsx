@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import styles from "./styles";
 // @ts-ignore
-import withStyles from "react-jss";
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { AppState, Timer, Clock } from "../../common/types";
-import { Table } from "semantic-ui-react";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableHead from "@material-ui/core/TableHead";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableFooter from "@material-ui/core/TableFooter";
+import Link from '@material-ui/core/Link';
 
 interface ComponentProps {
   timers: Timer[];
@@ -30,8 +36,8 @@ class Sidebar extends Component<ComponentProps, ComponentState> {
     super(props);
   }
 
-  timerStatusClassName(id: number) {
-    return this.props.activeTimer === id ? 'active' : '';
+  timerStatusClassName(id: number, cssClass: any) {
+    return this.props.activeTimer === id ? cssClass : '';
   }
 
   render() {
@@ -39,42 +45,44 @@ class Sidebar extends Component<ComponentProps, ComponentState> {
 
     let timersEl = timers.map((timer, i) => {
       return (
-        <Table.Row key={i} className={this.timerStatusClassName(i)}>
-          <Table.Cell>
-            <span>{i + 1}</span>
-          </Table.Cell>
-          <Table.Cell>{timer.minutes + "min"}</Table.Cell>
+        <TableRow key={i} className={this.timerStatusClassName(i, classes.selected)}>
+          <TableCell padding="dense" className={classes.cell}>
+            {i + 1}
+          </TableCell>
+          <TableCell padding="dense" className={classes.cell}>{timer.minutes + "min"}</TableCell>
           {!timer.break ? (
             <>
-              <Table.Cell>
+              <TableCell padding="dense" className={classes.cell}>
                 <i className="fas fa-coins" />
                 {timer.smallBlind}
-              </Table.Cell>
-              <Table.Cell>
+              </TableCell>
+              <TableCell padding="dense" className={classes.cell}>
                 <i className="fas fa-coins" />
                 {timer.bigBlind}
-              </Table.Cell>
+              </TableCell>
             </>
           ) : (
-            <Table.Cell colSpan="2" className="ui center aligned">
+            <TableCell padding="dense" className={classes.cell} colSpan={2} align="center">
               BREAK
-            </Table.Cell>
+            </TableCell>
           )}
-        </Table.Row>
+        </TableRow>
       );
     });
+
+    const LinkToTimers = (props: any) => <RouterLink to="/timers" {...props} />;
 
     return (
       <div className={classes.sidebar}>
         <Table className={classes.timers}>
-          <Table.Body>{timersEl}</Table.Body>
-          <Table.Footer>
-            <Table.Row>
-              <Table.Cell colSpan="4">
-                <Link to="/timers">Settings</Link>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Footer>
+          <TableBody>{timersEl}</TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell className={classes.cell} colSpan={4}>
+                <Link component={LinkToTimers} className={classes.settings}>Settings</Link>
+              </TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
     );

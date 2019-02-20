@@ -4,10 +4,17 @@ import styles from "./styles";
 // @ts-ignore
 import withStyles from "react-jss";
 import { connect } from "react-redux";
-import { Form, Button, Table, Container } from "semantic-ui-react";
 import { UPDATE_TIMERS, RESET_STATE, PAUSE_CLOCK } from "../../actions/actionTypes";
 import { AppState, Timer, Clock } from "../../common/types"
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableHead from "@material-ui/core/TableHead";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableFooter from "@material-ui/core/TableFooter";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
@@ -124,83 +131,75 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
     let timersEl = this.state.timers.map((timer, i) => {
       return (
-        <Table.Row key={i}>
-          <Table.Cell>
+        <TableRow key={i}>
+          <TableCell>
             <span>{i + 1}</span>
-          </Table.Cell>
+          </TableCell>
           {!timer.break ? ( 
             <>
-              <Table.Cell>
-                <Form.Field>
-                  <input value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
-                </Form.Field>
-              </Table.Cell>
-              <Table.Cell>
-                <Form.Field>
-                  <input value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
-                </Form.Field>
-              </Table.Cell>
-              <Table.Cell>
-                <Form.Field>
-                  <input value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
-                </Form.Field>
-              </Table.Cell>
+              <TableCell>
+                <TextField value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
+              </TableCell>
+              <TableCell>
+                <TextField value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
+              </TableCell>
+              <TableCell>
+                <TextField value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
+              </TableCell>
             </>
           ) : (
-            <Table.Cell colSpan="3">
+            <TableCell colSpan={3}>
               BREAK
-            </Table.Cell>
+            </TableCell>
           )}
-          <Table.Cell>
+          <TableCell>
             <Button onClick={this.removeTimer.bind(this, i)}>Remove</Button>
-          </Table.Cell>
-        </Table.Row>
+          </TableCell>
+        </TableRow>
       );
     });
 
     return (
       <div className={classes.timers}>
-        <Container>
-          <Link to="/" className={classes.back}>
-            <i className="fas fa-chevron-left"></i>
-            Back
-          </Link>
-          <Form>
-            <Table>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Level</Table.HeaderCell>
-                  <Table.HeaderCell>Duration</Table.HeaderCell>
-                  <Table.HeaderCell>Small Blind</Table.HeaderCell>
-                  <Table.HeaderCell>Big Blind</Table.HeaderCell>
-                  <Table.HeaderCell></Table.HeaderCell>
-                </Table.Row>
-               </Table.Header>
-              <Table.Body>
-                {timersEl}
-               </Table.Body>
-              <Table.Footer>
-                <Table.Row>
-                  <Table.Cell></Table.Cell>
-                  <Table.Cell colSpan="3">
-                    <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
-                    <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Button onClick={this.handleReset.bind(this)}>Reset all</Button>
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell></Table.Cell>
-                  <Table.Cell colSpan="4">
-                    <Button onClick={this.handleSubmit.bind(this)} type='submit' className="primary">Save</Button>
-                    <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
-                  </Table.Cell>
-                </Table.Row>
-              </Table.Footer>             
-            </Table>
-          </Form>
-        </Container>
+        <Link to="/" className={classes.back}>
+          <i className="fas fa-chevron-left"></i>
+          Back
+        </Link>
+        <form>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Level</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>Small Blind</TableCell>
+                <TableCell>Big Blind</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+             </TableHead>
+            <TableBody>
+              {timersEl}
+             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell colSpan={3}>
+                  <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
+                  <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
+                </TableCell>
+                <TableCell>
+                  <Button onClick={this.handleReset.bind(this)}>Reset all</Button>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell colSpan={4}>
+                  <Button onClick={this.handleSubmit.bind(this)} type='submit' className="primary">Save</Button>
+                  <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
+                </TableCell>
+              </TableRow>
+            </TableFooter>             
+          </Table>
+        </form>
       </div>
     );
   }

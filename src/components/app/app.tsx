@@ -5,7 +5,8 @@ import withStyles from "react-jss";
 import { ClockComponent } from "../clock/clock";
 import Sidebar from "../sidebar/sidebar";
 import { connect } from "react-redux";
-import { Grid } from "semantic-ui-react";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 interface ComponentProps {
   classes: any;
@@ -26,16 +27,16 @@ class App extends Component <ComponentProps, ComponentState> {
 
     return (
       <div className={classes.app}>
-        <header className={classes.header}>
-          <span>Poker Clock</span>
+        <header>
+          <Typography className={classes.name}>Poker Clock</Typography>
         </header>
-        <Grid>
-          <Grid.Column computer={4}>
+        <Grid container spacing={0}>
+          <Grid item lg={4}>
             <Sidebar />
-          </Grid.Column>
-          <Grid.Column id="clockColumn" computer={12}>
+          </Grid>
+          <Grid item id="clockColumn" lg={12}>
             <ClockComponent />
-          </Grid.Column>
+          </Grid>
         </Grid>
       </div>
     );

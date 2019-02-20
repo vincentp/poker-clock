@@ -8,6 +8,9 @@ import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK } from "../../actions/actionTypes
 import classNames from 'classnames';
 import { tickActiveTimer } from "../../middlewares/timerMiddleware";
 import { AppState, Timer, Clock } from "../../common/types";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 interface ComponentProps {
   startClock: () => void;
@@ -120,29 +123,29 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
     return (
       <div className={classes.circle} style={this.state.dimensions}>
         <div className={classes.actions}>
-          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", hidden)}>
+          <Button onClick={this.toggle} variant="contained" size="large" color="primary" className={classNames(classes.startButton, hidden)}>
             { clock.status === "STARTED" ? "PAUSE" : "START" }
-          </button>            
-          <div className={classNames("ui", "hidden", "divider")}></div>
-          <button onClick={resetClock} className={classNames("ui", "button", "mini")}>
+          </Button>            
+          <Divider className={"hidden"}></Divider>
+          <Button onClick={resetClock} variant="contained" size="small">
             RESET
-          </button> 
+          </Button> 
         </div>
         <div className={classes.content}>
           { !activeTimer.break ? (
             <>
-              <span className={classNames(classes.blindsTitle, hidden)}>Blinds</span>
-              <span className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</span>
+              <Typography className={classNames(classes.blindsTitle, hidden)}>Blinds</Typography>
+              <Typography className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</Typography>
             </>
           ) : (
-            <span className={classNames(classes.blindsTitle, hidden)}>Break</span>
+            <Typography className={classNames(classes.blindsTitle, hidden)}>Break</Typography>
           )}
-          <span className={classes.clock}>
+          <Typography className={classes.clock}>
             {this.formatSeconds(clock.totalSeconds)}
-          </span>
-          <span className={classes.timer}>
+          </Typography>
+          <Typography className={classes.timer}>
             {this.formatSeconds(activeTimer.secondsLeft)}
-          </span>
+          </Typography>
         </div>
       </div>
     );

@@ -11,8 +11,7 @@ export default {
       color: common.colors.text,
       radius: '50%'
     },
-    textAlign: 'center',
-    color: common.colors.text
+    textAlign: 'center'
   },
   hidden: {
     visibility: "hidden"
@@ -31,28 +30,32 @@ export default {
     width: '100%',
     marginTop: '-15px',
     fontSize: 'calc(22px + 2vmin)',
-    lineHeight: common.lineHeight
+    lineHeight: common.lineHeight,
+    color: common.colors.text
   },
   clock: {
     display: 'block',
     width: '100%',
     margin: 'calc(20px + 2vmin) 0 0 0',
     fontSize: '3vw',
-    lineHeight: common.lineHeight
+    lineHeight: common.lineHeight,
+    color: common.colors.text
   },
   timer: {
     display: 'block',
     width: '100%',
-    fontSize: '8vw',
-    lineHeight: common.lineHeight
+    fontSize: '7vw',
+    lineHeight: common.lineHeight,
+    color: common.colors.text
   },
   actions: {
     position: "absolute",
     width: "100%",
-    bottom: "calc(20px + 2vmin)",
-    "& .primary": {
-      ...common.elements.primaryBtn
-    }
+    bottom: "calc(20px + 2vmin)"
+  },
+  startButton: {
+    marginBottom: '20px',
+    ...common.elements.primaryBtn
   }
 
 };
