@@ -6,7 +6,7 @@ import withStyles from "react-jss";
 import { connect } from "react-redux";
 import { UPDATE_TIMERS, RESET_STATE, PAUSE_CLOCK } from "../../actions/actionTypes";
 import { AppState, Timer, Clock } from "../../common/types"
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
@@ -15,6 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
@@ -132,36 +133,38 @@ class Timers extends Component<ComponentProps, ComponentState> {
     let timersEl = this.state.timers.map((timer, i) => {
       return (
         <TableRow key={i}>
-          <TableCell>
+          <TableCell padding="dense" className={classes.cell}>
             <span>{i + 1}</span>
           </TableCell>
           {!timer.break ? ( 
             <>
-              <TableCell>
-                <TextField value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} />
+              <TableCell padding="dense" className={classes.cell}>
+                <TextField value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} className={classes.textField}></TextField>
               </TableCell>
-              <TableCell>
-                <TextField value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} />
+              <TableCell padding="dense" className={classes.cell}>
+                <TextField value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} className={classes.textField} />
               </TableCell>
-              <TableCell>
-                <TextField value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} />
+              <TableCell padding="dense" className={classes.cell}>
+                <TextField value={timer.bigBlind.toString()} onChange={this.handleChange.bind(this, i, 'bigBlind')} className={classes.textField} />
               </TableCell>
             </>
           ) : (
-            <TableCell colSpan={3}>
+            <TableCell padding="dense" className={classes.cell} colSpan={3}>
               BREAK
             </TableCell>
           )}
-          <TableCell>
-            <Button onClick={this.removeTimer.bind(this, i)}>Remove</Button>
+          <TableCell padding="dense" className={classes.cell}>
+            <Button variant="contained" size="small" onClick={this.removeTimer.bind(this, i)}>Remove</Button>
           </TableCell>
         </TableRow>
       );
     });
 
+    const LinkToApp = (props: any) => <RouterLink to="/" {...props} />;
+
     return (
       <div className={classes.timers}>
-        <Link to="/" className={classes.back}>
+        <Link component={LinkToApp} className={classes.back}>
           <i className="fas fa-chevron-left"></i>
           Back
         </Link>
@@ -169,11 +172,11 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Level</TableCell>
-                <TableCell>Duration</TableCell>
-                <TableCell>Small Blind</TableCell>
-                <TableCell>Big Blind</TableCell>
-                <TableCell></TableCell>
+                <TableCell padding="dense" className={classes.cell}>Level</TableCell>
+                <TableCell padding="dense" className={classes.cell}>Duration</TableCell>
+                <TableCell padding="dense" className={classes.cell}>Small Blind</TableCell>
+                <TableCell padding="dense" className={classes.cell}>Big Blind</TableCell>
+                <TableCell padding="dense" className={classes.cell}></TableCell>
               </TableRow>
              </TableHead>
             <TableBody>
@@ -181,20 +184,20 @@ class Timers extends Component<ComponentProps, ComponentState> {
              </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell colSpan={3}>
-                  <Button onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
-                  <Button onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
+                <TableCell padding="dense" className={classes.cell}></TableCell>
+                <TableCell padding="dense" className={classes.cell} colSpan={3}>
+                  <Button variant="contained" className={classes.button} onClick={this.addTimerBlind.bind(this)}>Add Blind</Button>
+                  <Button variant="contained" className={classes.button} onClick={this.addTimerBreak.bind(this)}>Add Break</Button>
                 </TableCell>
-                <TableCell>
-                  <Button onClick={this.handleReset.bind(this)}>Reset all</Button>
+                <TableCell padding="dense" className={classes.cell}>
+                  <Button variant="contained" className={classes.button} onClick={this.handleReset.bind(this)}>Reset all</Button>
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell colSpan={4}>
-                  <Button onClick={this.handleSubmit.bind(this)} type='submit' className="primary">Save</Button>
-                  <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
+                <TableCell padding="dense" className={classes.cell}></TableCell>
+                <TableCell padding="dense" className={classes.cell} colSpan={4}>
+                  <Button variant="contained" color="primary" className={classes.button} onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
+                  <Button variant="contained" className={classes.button} onClick={this.handleCancel.bind(this)}>Cancel</Button>
                 </TableCell>
               </TableRow>
             </TableFooter>             
