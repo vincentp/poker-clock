@@ -1,4 +1,4 @@
-import common from "../../common/styles";
+import theme from "../../common/theme";
 
 export default {
 
@@ -8,51 +8,57 @@ export default {
     border: {
       size: '1px',
       style: 'solid',
-      color: common.colors.text,
+      color: theme.palette.primary.contrastText,
       radius: '50%'
     },
-    textAlign: 'center',
-    color: common.colors.text
+    textAlign: 'center'
   },
   hidden: {
     visibility: "hidden"
   },
-  content: {
-    marginTop: '10px'
-  },
   blindsTitle: {
-    color: common.colors.title,
-    fontSize: 'calc(14px + 2vmin)',
-    lineHeight: common.lineHeight,
+    position: 'absolute',
+    top: '2%',
+    width: '100%',
+    color: theme.palette.secondary.main,
+    fontSize: '7vh',
     textTransform: "uppercase"
   },
   blindsValues: {
-    display: 'block',
+    position: 'absolute',
+    top: '10%',
     width: '100%',
-    marginTop: '-15px',
-    fontSize: 'calc(22px + 2vmin)',
-    lineHeight: common.lineHeight
+    fontSize: '7vh'
   },
   clock: {
-    display: 'block',
+    position: 'absolute',
+    top: '26%',
     width: '100%',
-    margin: 'calc(20px + 2vmin) 0 0 0',
-    fontSize: '3vw',
-    lineHeight: common.lineHeight
+    fontSize: '7vh'
   },
   timer: {
+    position: 'absolute',
+    top: '50%',
+    marginTop: '-12vh',
     display: 'block',
     width: '100%',
-    fontSize: '8vw',
-    lineHeight: common.lineHeight
+    fontSize: '18vh'
   },
-  actions: {
-    position: "absolute",
-    width: "100%",
-    bottom: "calc(20px + 2vmin)",
-    "& .primary": {
-      ...common.elements.primaryBtn
-    }
+  startButton: {
+    position: 'absolute',
+    top: '70%',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
+    fontSize: '6vh',
+    padding: '1vh 6vh'
+  },
+  resetButton: {
+    position: 'absolute',
+    top: '89%',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
+    fontSize: '2vh',
+    padding: '1vh 4vh',
   }
 
 };

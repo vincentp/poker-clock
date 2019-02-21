@@ -8,6 +8,8 @@ import { START_CLOCK, PAUSE_CLOCK, RESET_CLOCK } from "../../actions/actionTypes
 import classNames from 'classnames';
 import { tickActiveTimer } from "../../middlewares/timerMiddleware";
 import { AppState, Timer, Clock } from "../../common/types";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 interface ComponentProps {
   startClock: () => void;
@@ -84,12 +86,8 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
   updateDimensions() {
     let dimensions = null;
 
-    const container = document.getElementById('clockColumn');
-
-    if (container) {
-      const circleDiameter = window.innerHeight * 0.9;
-      dimensions = calculateDimensions(circleDiameter, window.innerWidth, 300, container.offsetWidth);
-    }
+    const circleDiameter = window.innerHeight * 0.9;
+    dimensions = calculateDimensions(circleDiameter, window.innerWidth, 300);
 
     this.setState(Object.assign({}, this.state, { 
       dimensions: dimensions
@@ -119,45 +117,42 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
 
     return (
       <div className={classes.circle} style={this.state.dimensions}>
-        <div className={classes.actions}>
-          <button onClick={this.toggle} className={classNames("ui", "button", "massive", "primary", hidden)}>
-            { clock.status === "STARTED" ? "PAUSE" : "START" }
-          </button>            
-          <div className={classNames("ui", "hidden", "divider")}></div>
-          <button onClick={resetClock} className={classNames("ui", "button", "mini")}>
-            RESET
-          </button> 
-        </div>
-        <div className={classes.content}>
-          { !activeTimer.break ? (
-            <>
-              <span className={classNames(classes.blindsTitle, hidden)}>Blinds</span>
-              <span className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</span>
-            </>
-          ) : (
-            <span className={classNames(classes.blindsTitle, hidden)}>Break</span>
-          )}
-          <span className={classes.clock}>
-            {this.formatSeconds(clock.totalSeconds)}
-          </span>
-          <span className={classes.timer}>
-            {this.formatSeconds(activeTimer.secondsLeft)}
-          </span>
-        </div>
+        { !activeTimer.break ? (
+          <>
+            <Typography className={classNames(classes.blindsTitle, hidden)}>Blinds</Typography>
+            <Typography className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</Typography>
+          </>
+        ) : (
+          <Typography className={classNames(classes.blindsTitle, hidden)}>Break</Typography>
+        )}
+        <Typography className={classes.clock}>
+          {this.formatSeconds(clock.totalSeconds)}
+        </Typography>
+        <Typography className={classes.timer}>
+          {this.formatSeconds(activeTimer.secondsLeft)}
+        </Typography>
+        <Button onClick={this.toggle} variant="contained" size="large" color="primary" className={classNames(classes.startButton, hidden)}>
+          { clock.status === "STARTED" ? "PAUSE" : "START" }
+        </Button>            
+        <Button onClick={resetClock} variant="contained" size="small" className={classNames(classes.resetButton)}>
+          RESET
+        </Button> 
       </div>
     );
   }
 }
 
-export const calculateDimensions = (circleDiameter: number, windowWidth: number, sidebarWidth: number, clockContainerWidth: number) => {
+export const calculateDimensions = (circleDiameter: number, windowWidth: number, sidebarWidth: number) => {
 
   // Center the clock within the window
   let right = (windowWidth - circleDiameter) / 2;
 
   // If the clock overlap the sidebar, there isn't enough space
-  // We center the clock within its container instead
-  if (right < sidebarWidth)
+  // We center the clock within the window width minus sidebar instead
+  if (right < sidebarWidth) {
+    const clockContainerWidth = windowWidth - sidebarWidth;
     right = (clockContainerWidth - circleDiameter) / 2;
+  }
 
   return {
     width: circleDiameter,

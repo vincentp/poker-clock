@@ -7,17 +7,23 @@ import * as serviceWorker from "./serviceWorker";
 import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from "./common/theme";
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <>
-        <Route exact path="/" component={App} />
-        <Route path="/timers" component={Timers} />
-      </>
-    </Router>
+    <MuiThemeProvider theme={theme}>
+      <Router>
+        <>
+          <CssBaseline />
+          <Route exact path="/" component={App} />
+          <Route path="/timers" component={Timers} />
+        </>
+      </Router>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById("root")
 );

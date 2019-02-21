@@ -37,34 +37,34 @@ describe("App Component", () => {
   });
 
   it("should have a button to start the clock", () => {
-    expect(wrapper.find("button.primary").text()).toEqual("START");
+    expect(wrapper.find("button.startButton").text()).toEqual("START");
   });
 
   it("should send an action to the store on start", () => {
-    wrapper.find("button.primary").simulate("click");
+    wrapper.find("button.startButton").simulate("click");
     expect(store.getActions()).toEqual([{ type: START_CLOCK }]);
   });
 
   it("should have a clock at 00:00:10 (10 seconds elapsed)", () => {
-    expect(wrapper.find(".clock").text()).toEqual("00:00:10");
+    expect(wrapper.find("p.clock").text()).toEqual("00:00:10");
   });
 
   it("should have a default timer at 00:01:10 (70 seconds left)", () => {
-    expect(wrapper.find(".timer").text()).toEqual("00:01:10");
+    expect(wrapper.find("p.timer").text()).toEqual("00:01:10");
   });
 
   describe("clock size with a sidebar of 300px", () => {
 
     it("should center the clock based on the window's width if there is enough space for the sidebar", () => {
-      const dimensions = calculateDimensions(500, 1200, 300, 700);
+      const dimensions = calculateDimensions(500, 1200, 300);
       expect(dimensions.right).toEqual(350);
     });    
 
-    it("should center the clock based on the container's width if there isn't enough space for the sidebar", () => {
-      let dimensions = calculateDimensions(500, 1000, 300, 700);
+    it("should center the clock based on the window's width minus sidebar if there isn't enough space for the sidebar", () => {
+      let dimensions = calculateDimensions(500, 1000, 300);
       expect(dimensions.right).toEqual(100);
 
-      dimensions = calculateDimensions(500, 800, 300, 500);
+      dimensions = calculateDimensions(500, 800, 300);
       expect(dimensions.right).toEqual(0);
     });    
 

@@ -1,4 +1,4 @@
-import common from "../../common/styles";
+import theme from "../../common/theme";
 
 export default {
 
@@ -7,11 +7,22 @@ export default {
     maxWidth: '280px'
   },
   timers: {
-    background: 'none !important',
-    color: common.colors.text + ' !important',
     "& .fa-coins": {
       marginRight: '5px'
     }
+  },
+  selected: {
+    backgroundColor: theme.palette.primary.contrastText,
+    '& td': {
+      color: theme.palette.primary.dark
+    }
+  },
+  cell: {
+    border: 0,
+    padding: '0 10px !important'
+  },
+  settings: {
+    fontSize: '16px',
   }
 
 };

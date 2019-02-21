@@ -1,15 +1,15 @@
-import common from "../../common/styles";
+import theme from "../../common/theme";
 
 export default {
 
   app: {
-    minHeight: '100%',
-    backgroundColor: common.colors.background
+    minHeight: '100%'
   },
-  header: {
+  name: {
     fontSize: 'calc(16px + 2vmin)',
-    color: common.colors.title,
-    padding: '10px'
+    fontWeight: 600,
+    color: theme.palette.secondary.main,
+    paddingLeft: '10px'
   }
   
 };

@@ -44,7 +44,7 @@ describe("App Component", () => {
   });
 
   it("should have a button to save timers settings", () => {
-    expect(wrapper.find("button.primary").text()).toEqual("Save");
+    expect(wrapper.find("button.test-save").text()).toEqual("Save");
   });
 
 });

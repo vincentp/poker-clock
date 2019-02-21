@@ -1,22 +1,20 @@
-import common from "../../common/styles";
-
 export default {
-
   timers: {
-    minHeight: '100%',
-    backgroundColor: common.colors.background,    
-    color: common.colors.text,
-    "& table, & table thead th": {
-      background: 'none !important',
-      color: (common.colors.text + ' !important')
-    }
+    minHeight: "100%"
   },
   back: {
-    display: "inline-block",
-    margin: '10px 0 20px 10px',
+    margin: "10px 0 20px 10px",
     "& i": {
       marginRight: "5px"
     }
+  },
+  cell: {
+    border: 0
+  },
+  textField: {
+    width: "100%"
+  },
+  button: {
+    marginRight: "5px"
   }
-
 };
