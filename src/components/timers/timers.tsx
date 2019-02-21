@@ -138,11 +138,11 @@ class Timers extends Component<ComponentProps, ComponentState> {
           <TableCell padding="dense" className={classes.cell}>
             <span>{i + 1}</span>
           </TableCell>
+          <TableCell padding="dense" className={classes.cell}>
+            <TextField value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} className={classes.textField}></TextField>
+          </TableCell>
           {!timer.break ? ( 
             <>
-              <TableCell padding="dense" className={classes.cell}>
-                <TextField value={timer.minutes.toString()} onChange={this.handleChange.bind(this, i, 'minutes')} className={classes.textField}></TextField>
-              </TableCell>
               <TableCell padding="dense" className={classes.cell}>
                 <TextField value={timer.smallBlind.toString()} onChange={this.handleChange.bind(this, i, 'smallBlind')} className={classes.textField} />
               </TableCell>
@@ -151,7 +151,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
               </TableCell>
             </>
           ) : (
-            <TableCell padding="dense" className={classes.cell} colSpan={3}>
+            <TableCell padding="dense" className={classes.cell} colSpan={2}>
               BREAK
             </TableCell>
           )}
