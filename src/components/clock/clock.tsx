@@ -10,7 +10,6 @@ import { tickActiveTimer } from "../../middlewares/timerMiddleware";
 import { AppState, Timer, Clock } from "../../common/types";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 
 interface ComponentProps {
   startClock: () => void;
@@ -135,7 +134,6 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
         <Button onClick={this.toggle} variant="contained" size="large" color="primary" className={classNames(classes.startButton, hidden)}>
           { clock.status === "STARTED" ? "PAUSE" : "START" }
         </Button>            
-        <Divider className={"hidden"}></Divider>
         <Button onClick={resetClock} variant="contained" size="small" className={classNames(classes.resetButton)}>
           RESET
         </Button> 

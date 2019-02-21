@@ -16,6 +16,8 @@ import TableFooter from "@material-ui/core/TableFooter";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+import classNames from 'classnames';
 
 interface ComponentProps {
   updateTimers: (timers: Timer[]) => void;
@@ -164,10 +166,12 @@ class Timers extends Component<ComponentProps, ComponentState> {
 
     return (
       <div className={classes.timers}>
-        <Link component={LinkToApp} className={classes.back}>
-          <i className="fas fa-chevron-left"></i>
-          Back
-        </Link>
+        <Typography className={classes.back} color="primary">
+          <Link component={LinkToApp}>
+            <i className="fas fa-chevron-left"></i>
+            Back
+          </Link>
+        </Typography>
         <form>
           <Table>
             <TableHead>
@@ -196,7 +200,7 @@ class Timers extends Component<ComponentProps, ComponentState> {
               <TableRow>
                 <TableCell padding="dense" className={classes.cell}></TableCell>
                 <TableCell padding="dense" className={classes.cell} colSpan={4}>
-                  <Button variant="contained" color="primary" className={classes.button} onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
+                  <Button variant="contained" color="primary" className={classNames('test-save', classes.button)} onClick={this.handleSubmit.bind(this)} type='submit'>Save</Button>
                   <Button variant="contained" className={classes.button} onClick={this.handleCancel.bind(this)}>Cancel</Button>
                 </TableCell>
               </TableRow>

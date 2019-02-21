@@ -1,4 +1,4 @@
-import common from "../../common/styles";
+import theme from "../../common/theme";
 
 export default {
 
@@ -8,7 +8,7 @@ export default {
     border: {
       size: '1px',
       style: 'solid',
-      color: common.colors.text,
+      color: theme.palette.primary.contrastText,
       radius: '50%'
     },
     textAlign: 'center'
@@ -20,7 +20,7 @@ export default {
     position: 'absolute',
     top: '2%',
     width: '100%',
-    color: common.colors.title,
+    color: theme.palette.secondary.main,
     fontSize: '7vh',
     textTransform: "uppercase"
   },
@@ -28,15 +28,13 @@ export default {
     position: 'absolute',
     top: '10%',
     width: '100%',
-    fontSize: '7vh',
-    color: common.colors.text
+    fontSize: '7vh'
   },
   clock: {
     position: 'absolute',
     top: '26%',
     width: '100%',
-    fontSize: '7vh',
-    color: common.colors.text
+    fontSize: '7vh'
   },
   timer: {
     position: 'absolute',
@@ -44,8 +42,7 @@ export default {
     marginTop: '-12vh',
     display: 'block',
     width: '100%',
-    fontSize: '18vh',
-    color: common.colors.text
+    fontSize: '18vh'
   },
   startButton: {
     position: 'absolute',
@@ -53,8 +50,7 @@ export default {
     left: '50%',
     transform: 'translate(-50%, 0)',
     fontSize: '6vh',
-    padding: '1vh 6vh',
-    ...common.elements.primaryBtn
+    padding: '1vh 6vh'
   },
   resetButton: {
     position: 'absolute',

@@ -1,4 +1,4 @@
-import common from "../../common/styles";
+import theme from "../../common/theme";
 
 export default {
 
@@ -12,18 +12,17 @@ export default {
     }
   },
   selected: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.primary.contrastText,
     '& td': {
-      color: common.colors.darkText
+      color: theme.palette.primary.dark
     }
   },
   cell: {
-    color: common.colors.text,
     border: 0,
     padding: '0 10px !important'
   },
   settings: {
-    color: common.colors.link
+    fontSize: '16px',
   }
 
 };
