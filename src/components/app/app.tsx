@@ -30,14 +30,8 @@ class App extends Component <ComponentProps, ComponentState> {
         <header>
           <Typography className={classes.name}>Poker Clock</Typography>
         </header>
-        <Grid container spacing={0}>
-          <Grid item lg={4}>
-            <Sidebar />
-          </Grid>
-          <Grid item id="clockColumn" lg={12}>
-            <ClockComponent />
-          </Grid>
-        </Grid>
+        <Sidebar />
+        <ClockComponent />
       </div>
     );
   }

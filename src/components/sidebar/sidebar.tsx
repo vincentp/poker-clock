@@ -46,17 +46,17 @@ class Sidebar extends Component<ComponentProps, ComponentState> {
     let timersEl = timers.map((timer, i) => {
       return (
         <TableRow key={i} className={this.timerStatusClassName(i, classes.selected)}>
-          <TableCell padding="dense" className={classes.cell}>
+          <TableCell padding="dense" align="center" className={classes.cell}>
             {i + 1}
           </TableCell>
-          <TableCell padding="dense" className={classes.cell}>{timer.minutes + "min"}</TableCell>
+          <TableCell padding="dense" align="center" className={classes.cell}>{timer.minutes + "min"}</TableCell>
           {!timer.break ? (
             <>
-              <TableCell padding="dense" className={classes.cell}>
+              <TableCell padding="dense" align="center" className={classes.cell}>
                 <i className="fas fa-coins" />
                 {timer.smallBlind}
               </TableCell>
-              <TableCell padding="dense" className={classes.cell}>
+              <TableCell padding="dense" align="center" className={classes.cell}>
                 <i className="fas fa-coins" />
                 {timer.bigBlind}
               </TableCell>

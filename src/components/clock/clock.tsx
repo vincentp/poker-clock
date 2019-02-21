@@ -87,12 +87,8 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
   updateDimensions() {
     let dimensions = null;
 
-    const container = document.getElementById('clockColumn');
-
-    if (container) {
-      const circleDiameter = window.innerHeight * 0.9;
-      dimensions = calculateDimensions(circleDiameter, window.innerWidth, 300, container.offsetWidth);
-    }
+    const circleDiameter = window.innerHeight * 0.9;
+    dimensions = calculateDimensions(circleDiameter, window.innerWidth, 300);
 
     this.setState(Object.assign({}, this.state, { 
       dimensions: dimensions
@@ -122,45 +118,43 @@ class ClockComponentNotConnected extends Component<ComponentProps, ComponentStat
 
     return (
       <div className={classes.circle} style={this.state.dimensions}>
-        <div className={classes.actions}>
-          <Button onClick={this.toggle} variant="contained" size="large" color="primary" className={classNames(classes.startButton, hidden)}>
-            { clock.status === "STARTED" ? "PAUSE" : "START" }
-          </Button>            
-          <Divider className={"hidden"}></Divider>
-          <Button onClick={resetClock} variant="contained" size="small">
-            RESET
-          </Button> 
-        </div>
-        <div className={classes.content}>
-          { !activeTimer.break ? (
-            <>
-              <Typography className={classNames(classes.blindsTitle, hidden)}>Blinds</Typography>
-              <Typography className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</Typography>
-            </>
-          ) : (
-            <Typography className={classNames(classes.blindsTitle, hidden)}>Break</Typography>
-          )}
-          <Typography className={classes.clock}>
-            {this.formatSeconds(clock.totalSeconds)}
-          </Typography>
-          <Typography className={classes.timer}>
-            {this.formatSeconds(activeTimer.secondsLeft)}
-          </Typography>
-        </div>
+        { !activeTimer.break ? (
+          <>
+            <Typography className={classNames(classes.blindsTitle, hidden)}>Blinds</Typography>
+            <Typography className={classNames(classes.blindsValues, hidden)}>{activeTimer.smallBlind}/{activeTimer.bigBlind}</Typography>
+          </>
+        ) : (
+          <Typography className={classNames(classes.blindsTitle, hidden)}>Break</Typography>
+        )}
+        <Typography className={classes.clock}>
+          {this.formatSeconds(clock.totalSeconds)}
+        </Typography>
+        <Typography className={classes.timer}>
+          {this.formatSeconds(activeTimer.secondsLeft)}
+        </Typography>
+        <Button onClick={this.toggle} variant="contained" size="large" color="primary" className={classNames(classes.startButton, hidden)}>
+          { clock.status === "STARTED" ? "PAUSE" : "START" }
+        </Button>            
+        <Divider className={"hidden"}></Divider>
+        <Button onClick={resetClock} variant="contained" size="small" className={classNames(classes.resetButton)}>
+          RESET
+        </Button> 
       </div>
     );
   }
 }
 
-export const calculateDimensions = (circleDiameter: number, windowWidth: number, sidebarWidth: number, clockContainerWidth: number) => {
+export const calculateDimensions = (circleDiameter: number, windowWidth: number, sidebarWidth: number) => {
 
   // Center the clock within the window
   let right = (windowWidth - circleDiameter) / 2;
 
   // If the clock overlap the sidebar, there isn't enough space
-  // We center the clock within its container instead
-  if (right < sidebarWidth)
+  // We center the clock within the window width minus sidebar instead
+  if (right < sidebarWidth) {
+    const clockContainerWidth = windowWidth - sidebarWidth;
     right = (clockContainerWidth - circleDiameter) / 2;
+  }
 
   return {
     width: circleDiameter,

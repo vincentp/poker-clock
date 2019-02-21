@@ -56,15 +56,15 @@ describe("App Component", () => {
   describe("clock size with a sidebar of 300px", () => {
 
     it("should center the clock based on the window's width if there is enough space for the sidebar", () => {
-      const dimensions = calculateDimensions(500, 1200, 300, 700);
+      const dimensions = calculateDimensions(500, 1200, 300);
       expect(dimensions.right).toEqual(350);
     });    
 
-    it("should center the clock based on the container's width if there isn't enough space for the sidebar", () => {
-      let dimensions = calculateDimensions(500, 1000, 300, 700);
+    it("should center the clock based on the window's width minus sidebar if there isn't enough space for the sidebar", () => {
+      let dimensions = calculateDimensions(500, 1000, 300);
       expect(dimensions.right).toEqual(100);
 
-      dimensions = calculateDimensions(500, 800, 300, 500);
+      dimensions = calculateDimensions(500, 800, 300);
       expect(dimensions.right).toEqual(0);
     });    
 

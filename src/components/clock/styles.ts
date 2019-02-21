@@ -16,46 +16,53 @@ export default {
   hidden: {
     visibility: "hidden"
   },
-  content: {
-    marginTop: '10px'
-  },
   blindsTitle: {
+    position: 'absolute',
+    top: '2%',
+    width: '100%',
     color: common.colors.title,
-    fontSize: 'calc(14px + 2vmin)',
-    lineHeight: common.lineHeight,
+    fontSize: '7vh',
     textTransform: "uppercase"
   },
   blindsValues: {
-    display: 'block',
+    position: 'absolute',
+    top: '10%',
     width: '100%',
-    marginTop: '-15px',
-    fontSize: 'calc(22px + 2vmin)',
-    lineHeight: common.lineHeight,
+    fontSize: '7vh',
     color: common.colors.text
   },
   clock: {
-    display: 'block',
+    position: 'absolute',
+    top: '26%',
     width: '100%',
-    margin: 'calc(20px + 2vmin) 0 0 0',
-    fontSize: '3vw',
-    lineHeight: common.lineHeight,
+    fontSize: '7vh',
     color: common.colors.text
   },
   timer: {
+    position: 'absolute',
+    top: '50%',
+    marginTop: '-12vh',
     display: 'block',
     width: '100%',
-    fontSize: '7vw',
-    lineHeight: common.lineHeight,
+    fontSize: '18vh',
     color: common.colors.text
   },
-  actions: {
-    position: "absolute",
-    width: "100%",
-    bottom: "calc(20px + 2vmin)"
-  },
   startButton: {
-    marginBottom: '20px',
+    position: 'absolute',
+    top: '70%',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
+    fontSize: '6vh',
+    padding: '1vh 6vh',
     ...common.elements.primaryBtn
+  },
+  resetButton: {
+    position: 'absolute',
+    top: '89%',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
+    fontSize: '2vh',
+    padding: '1vh 4vh',
   }
 
 };

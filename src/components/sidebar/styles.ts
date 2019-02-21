@@ -20,7 +20,7 @@ export default {
   cell: {
     color: common.colors.text,
     border: 0,
-    padding: '0 10px'
+    padding: '0 10px !important'
   },
   settings: {
     color: common.colors.link
